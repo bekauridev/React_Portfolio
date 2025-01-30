@@ -42,6 +42,8 @@ function ProjectsPreview() {
       {/* projects slider */}
       <div className="mt-4">
         <InfiniteCarousel
+          speed={0.5}
+          direction={"left"}
           images={[
             ImgSmForkify,
             ImgSmBankist,

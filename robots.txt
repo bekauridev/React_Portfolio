@@ -1,8 +1,11 @@
-# Allow all crawlers
+# Block access to admin and temp directories
 User-agent: *
 Disallow: /admin/
-Disallow: /private/
-Disallow: /temporary/
 
-# Allow crawling of all other pages
-Allow: /
+Disallow:/search
+Disallow:/*?updated-max=*
+Disallow:/*?max-results=*
+Disallow:/*?m=1
+
+# Specify sitemap location
+Sitemap: https://yourwebsite.com/sitemap.xml
