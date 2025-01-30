@@ -1,15 +1,20 @@
 import { MdOutlineWork } from "react-icons/md";
+// UI
 import DivideLine from "../../ui/DivideLine";
 import InfiniteCarousel from "../../ui/InfiniteCarousel";
 
+// Images
 import ImgSmForkify from "../../assets/images/project-images/forkify-project-sm.webp";
 import ImgSmBankist from "../../assets/images/project-images/project-omnifood-sm.webp";
 import ImgSmBankistApp from "../../assets/images/project-images/project-bankist-app-sm.webp";
 import ImgSmMapty from "../../assets/images/project-images/project-mapty-sm.webp";
 import ImgSmOmnifood from "../../assets/images/project-images/project-omnifood-sm.webp";
 import ImgSmWeatherCard from "../../assets/images/project-images/Weather-card-sm.webp";
+
 import ImgSmWorldWise from "../../assets/images/project-images/worldWise-project-sm.webp";
 import Button from "../../ui/Button";
+
+// React Icons
 import { FaArrowRightLong } from "react-icons/fa6";
 import { RxLink2, RxLinkBreak2 } from "react-icons/rx";
 
