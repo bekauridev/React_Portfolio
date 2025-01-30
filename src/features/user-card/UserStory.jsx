@@ -15,7 +15,7 @@ import {
 } from "react-icons/io5";
 import { IoIosArrowDown } from "react-icons/io";
 // Images
-import storyImg from "../../assets/images/story-img/story.png";
+import storyImg from "../../assets/images/story-img/story.webp";
 import avatarImage from "../../assets/images/avatar-images/Webp.net-resize11image.jpg";
 
 function UserStory({ storyOpen, setStoryOpen }) {
@@ -24,23 +24,29 @@ function UserStory({ storyOpen, setStoryOpen }) {
   const [isHeartClicked, setIsHeartClicked] = useState(false);
   const [timeToHide, setTimeToHide] = useState(false);
 
+  // Story touch timer ref
   const intervalRef = useRef(null);
-  const y = useMotionValue(0); // Create motion value for y-axis
+  // Story duration ref
+  const timeoutRef = useRef(null);
+  // Story ref (for handle click outside)
+  const storyRef = useRef(null);
 
-  const handleClose = useCallback(
-    async function handleClose() {
-      // Animate the closing of the story
-      await animate("#storyContainer", {
-        scale: 0.8,
-        opacity: 0,
-        transition: { duration: 0.3 },
-      });
+  // motion value for y-axis
+  const y = useMotionValue(0);
 
-      // After animation finishes, close the story
-      setStoryOpen(false);
-    },
-    [setStoryOpen]
-  );
+  const handleClose = useCallback(async () => {
+    // Animate the closing of the story
+    await animate("#storyContainer", {
+      scale: 0.8,
+      opacity: 0,
+      transition: { duration: 0.3 },
+    });
+
+    // After animation finishes, close the story
+    setStoryOpen(false);
+    setIsPaused(false);
+    setProgress(0);
+  }, [setStoryOpen, setIsPaused]);
 
   // Close the Story if the escape key is pressed
   useKeyListener(() => {
@@ -52,86 +58,76 @@ function UserStory({ storyOpen, setStoryOpen }) {
   const handleResume = () => setIsPaused(false);
 
   // When user press to story
-  const handleTouchStart = () => {
-    const startTime = Date.now();
-    // Touch time order to hide header/footer
-    const hideTime = 500; //(500ms) hald second
-
-    intervalRef.current = setInterval(() => {
-      // Elapsed time in milliseconds
-      const elapsed = Date.now() - startTime;
-
-      // After half second
-      if (elapsed >= hideTime) {
-        setTimeToHide(true); // Hide header/footer
-        setIsPaused(true); // Pause the story
-        clearInterval(intervalRef.current); // Stop further interval updates
-      }
-    }, 10); // Check elapsed time every 10ms
-  };
+  const handleTouchStart = useCallback(() => {
+    // After 500ms story will
+    intervalRef.current = setTimeout(() => {
+      setTimeToHide(true); // hide header/footer
+      setIsPaused(true); // Pause the story
+    }, 500); // 500ms delay
+  }, []);
 
   // When user unpress to story
-  const handleTouchEnd = () => {
-    clearInterval(intervalRef.current); // Stop the interval
-    intervalRef.current = null;
-
-    setTimeToHide(false); // Make header/footer visible again
+  const handleTouchEnd = useCallback(() => {
+    clearTimeout(intervalRef.current); // Stop timer
+    setTimeToHide(false); // Make header/footer visible
     setIsPaused(false); // Resume the story
-  };
+  }, []);
 
-  // Handle story duration and progress
+  // Handle story duration and progress tracking
   useEffect(() => {
+    //If the story is closed, reset progress and exit
+    if (!storyOpen) {
+      setProgress(0);
+      return;
+    }
+
+    // If the story is paused, exit early
+    if (isPaused) return;
+
+    // Interval reference for updating progress
     let interval;
+    // Total progress duration (100%)
     const storyEndTime = 100;
 
-    // Reset progress when the story is closed
-    if (!storyOpen) {
-      setProgress(0); // Reset progress if the story is closed
-    }
+    // Start progress tracking
+    interval = setInterval(() => {
+      setProgress((prev) => {
+        // If progress reaches the end, stop and close the story
+        if (prev >= storyEndTime) {
+          clearInterval(interval); // Stop the interval
+          timeoutRef.current = setTimeout(handleClose, 0); // Close the story with a slight delay to prevent rendering issues
+          return storyEndTime; // Ensure progress doesn't exceed 100%
+        }
+        return prev + 1; // Otherwise, increment progress
+      });
+    }, 50); // Update progress every 50ms
 
-    // Update progress if the story is open and not paused
-    if (storyOpen && !isPaused) {
-      interval = setInterval(() => {
-        setProgress((prev) => {
-          // When story reachs end time
-          if (prev >= storyEndTime) {
-            // Stop progress
-            clearInterval(interval);
-            // Close the story
-            setTimeout(() => {
-              // Use setTimeout because ensure that React has completed the current render phase withouth this there will be error
-              handleClose();
-            }, 0);
-            return storyEndTime;
-          }
-          // If not Increment progress
-          return prev + 1;
-        });
-      }, 50);
-    } else {
-      // Stop progress if paused or story is closed
+    // Cleanup function to clear interval
+    return () => {
       clearInterval(interval);
-    }
-
-    // Cleanup
-    return () => clearInterval(interval);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
   }, [storyOpen, isPaused, handleClose]);
 
   // When user clicks outside of story content
-  const handleClickOutside = (e) => {
-    if (e.target.classList.contains("story-backdrop")) {
-      handleClose();
-    }
-  };
+  const handleClickOutside = useCallback(
+    (e) => {
+      if (storyRef.current && !storyRef.current.contains(e.target)) {
+        handleClose();
+      }
+    },
+    [handleClose]
+  );
 
   return (
     <>
       {storyOpen && (
         <div
-          className="story-backdrop fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90"
           onClick={handleClickOutside}
         >
           <motion.div
+            ref={storyRef}
             id="storyContainer"
             className="relative flex h-screen w-screen max-w-[400px] flex-col overflow-hidden rounded-lg bg-gray-900 md:h-[90vh] md:w-[50vw]"
             drag="y" // Drag direction
@@ -139,12 +135,13 @@ function UserStory({ storyOpen, setStoryOpen }) {
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
+            style={{ y }}
             // Drag options
             dragListener={true}
             dragConstraints={{ top: 0, bottom: 0 }}
             dragElastic={{ top: 0, bottom: 0.3 }}
             onDragEnd={() => {
-              if (y.get() <= 50) {
+              if (y.get() >= 40) {
                 handleClose();
               }
             }}
@@ -221,11 +218,13 @@ function UserStory({ storyOpen, setStoryOpen }) {
               onTouchStart={handleTouchStart}
               onTouchEnd={handleTouchEnd}
             >
-              <div className="h-full w-full">
+              <div className="pointer-events-none h-full w-full">
                 <img
                   src={storyImg}
                   alt="Story Content"
                   className="h-full w-full object-contain"
+                  onContextMenu={(e) => e.preventDefault()}
+                  onDragStart={(e) => e.preventDefault()}
                 />
               </div>
             </motion.div>
