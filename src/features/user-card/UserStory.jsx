@@ -16,7 +16,7 @@ import {
 import { IoIosArrowDown } from "react-icons/io";
 // Images
 import storyImg from "../../assets/images/story-img/story.webp";
-import avatarImage from "../../assets/images/avatar-images/Webp.net-resize11image.jpg";
+import avatarImage from "../../assets/images/avatar-images/avatar.webp";
 
 function UserStory({ storyOpen, setStoryOpen }) {
   const [progress, setProgress] = useState(0);

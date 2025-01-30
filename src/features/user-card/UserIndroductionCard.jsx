@@ -6,12 +6,12 @@ import UserInfoItem from "./UserInfoItem";
 import UserStory from "./UserStory";
 
 // Images
-import avatarImage from "../../assets/images/avatar-images/Webp.net-resize11image.jpg";
+import avatarImage from "../../assets/images/avatar-images/avatar.webp";
 
 // React Icons
 import { FaBirthdayCake } from "react-icons/fa";
 import { FaMapLocationDot } from "react-icons/fa6";
-import { LuBookHeart, LuDot } from "react-icons/lu";
+import { LuBookHeart } from "react-icons/lu";
 import { RiGlobeFill } from "react-icons/ri";
 import { TbTimezone } from "react-icons/tb";
 
@@ -27,7 +27,7 @@ import cssIcon from "../../assets/icons/css.svg";
 import tailwindcssIcon from "../../assets/icons/tailwindcss.svg";
 
 import Button from "../../ui/Button";
-import { GoDotFill } from "react-icons/go";
+
 import { FiGithub } from "react-icons/fi";
 
 function UserIndroductionCard() {
@@ -64,7 +64,7 @@ function UserIndroductionCard() {
           />
 
           {/* Overlay effect */}
-          <div className="absolute inset-0 bg-primary-600/40 transition-opacity duration-300 hover:opacity-40"></div>
+          <div className="absolute inset-0 bg-primary-600/30 transition-opacity duration-300 hover:opacity-40"></div>
         </div>
 
         {/* Story */}
