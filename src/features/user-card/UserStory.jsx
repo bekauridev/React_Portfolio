@@ -17,13 +17,17 @@ import { IoIosArrowDown } from "react-icons/io";
 // Images
 import storyImg from "../../assets/images/story-img/story.webp";
 import avatarImage from "../../assets/images/avatar-images/avatar.webp";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleStoryOpen } from "./userSlice";
 
-function UserStory({ storyOpen, setStoryOpen }) {
+function UserStory() {
+  const isStoryOpen = useSelector((state) => state.user.isStoryOpen);
+  const dispatch = useDispatch();
+
   const [progress, setProgress] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [isHeartClicked, setIsHeartClicked] = useState(false);
   const [timeToHide, setTimeToHide] = useState(false);
-
   // Story touch timer ref
   const intervalRef = useRef(null);
   // Story duration ref
@@ -43,14 +47,15 @@ function UserStory({ storyOpen, setStoryOpen }) {
     });
 
     // After animation finishes, close the story
-    setStoryOpen(false);
+    // setStoryOpen(false);
+    dispatch(toggleStoryOpen());
     setIsPaused(false);
     setProgress(0);
-  }, [setStoryOpen, setIsPaused]);
+  }, [setIsPaused, dispatch]);
 
   // Close the Story if the escape key is pressed
   useKeyListener(() => {
-    if (storyOpen) handleClose();
+    if (isStoryOpen) handleClose();
   }, "Escape");
 
   // pause/resume functions for header and footer
@@ -76,7 +81,7 @@ function UserStory({ storyOpen, setStoryOpen }) {
   // Handle story duration and progress tracking
   useEffect(() => {
     //If the story is closed, reset progress and exit
-    if (!storyOpen) {
+    if (!isStoryOpen) {
       setProgress(0);
       return;
     }
@@ -107,7 +112,7 @@ function UserStory({ storyOpen, setStoryOpen }) {
       clearInterval(interval);
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
-  }, [storyOpen, isPaused, handleClose]);
+  }, [isStoryOpen, isPaused, handleClose]);
 
   // When user clicks outside of story content
   const handleClickOutside = useCallback(
@@ -121,15 +126,15 @@ function UserStory({ storyOpen, setStoryOpen }) {
 
   return (
     <>
-      {storyOpen && (
+      {isStoryOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90"
+          className="fixed inset-0 z-50 flex cursor-pointer items-center justify-center bg-black bg-opacity-90"
           onClick={handleClickOutside}
         >
           <motion.div
             ref={storyRef}
             id="storyContainer"
-            className="relative flex h-screen w-screen max-w-[400px] flex-col overflow-hidden rounded-lg bg-gray-900 md:h-[90vh] md:w-[50vw]"
+            className="relative flex h-screen w-screen max-w-[400px] cursor-default flex-col overflow-hidden rounded-lg bg-gray-900 md:h-[90vh] md:w-[50vw]"
             drag="y" // Drag direction
             // Animation
             initial={{ scale: 0.9, opacity: 0 }}

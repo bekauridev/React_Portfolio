@@ -29,10 +29,14 @@ import tailwindcssIcon from "../../assets/icons/tailwindcss.svg";
 import Button from "../../ui/Button";
 
 import { FiGithub } from "react-icons/fi";
+import { useDispatch } from "react-redux";
+import { toggleStoryOpen } from "./userSlice";
 
 function UserIndroductionCard() {
   // Story state
-  const [storyOpen, setStoryOpen] = useState(false);
+
+  const dispatch = useDispatch();
+
   // User avatar border state
   const [isStoryOpened, setIsStoryOpened] = useState(() => {
     const storedValue = localStorage.getItem("StoryOpened");
@@ -41,7 +45,7 @@ function UserIndroductionCard() {
 
   const handleStoryClick = () => {
     setIsStoryOpened(true);
-    setStoryOpen((storyOpen) => !storyOpen);
+    dispatch(toggleStoryOpen());
     localStorage.setItem("StoryOpened", true);
   };
 
@@ -68,11 +72,7 @@ function UserIndroductionCard() {
         </div>
 
         {/* Story */}
-        <UserStory
-          storyOpen={storyOpen}
-          setStoryOpen={setStoryOpen}
-          onStoryOpen={storyOpen}
-        />
+        <UserStory />
 
         <div className="flex flex-col">
           {/* Status */}

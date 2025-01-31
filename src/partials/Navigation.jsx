@@ -13,14 +13,14 @@ import { useDragControls, useMotionValue, useAnimate, motion } from "framer-moti
 function Navigation({ setIsContactsModalOpen }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const closeBtnRef = useRef(null);
-  const [scope, animate] = useAnimate();
+
   const [drawerRef, { height }] = useMeasure();
-  const y = useMotionValue(0);
+  const [scope, animate] = useAnimate();
   const controls = useDragControls();
+  const y = useMotionValue(0);
 
   const handleClose = async () => {
     // Ensure the drawer moves down first
-    // await animate(y, height);
     await animate("#drawer", { y: height, opacity: 0 });
 
     // Then fade out the background overlay
@@ -38,7 +38,7 @@ function Navigation({ setIsContactsModalOpen }) {
   return (
     <>
       <nav className="sticky top-0 z-20 bg-primary-500/60 shadow-md backdrop-blur-md md:static md:bg-primary-500/60">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 md:px-4">
+        <div className="mx-auto max-w-4xl px-6 sm:px-6 md:px-4">
           <div className="flex h-16 items-center justify-between">
             <Button to={"#"} targetBlank={false} type="none">
               <div className="text-xl font-bold text-gray-200">&lt;/BekauriDev&gt;</div>
