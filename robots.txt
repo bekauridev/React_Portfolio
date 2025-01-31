@@ -1,11 +1,13 @@
 # Block access to admin and temp directories
 User-agent: *
 Disallow: /admin/
+Disallow: /temporary/
 
-Disallow:/search
-Disallow:/*?updated-max=*
-Disallow:/*?max-results=*
-Disallow:/*?m=1
+# Block access to specific URL parameters
+Disallow: /search
+Disallow: /*?updated-max=*
+Disallow: /*?max-results=*
+Disallow: /*?m=1
 
 # Specify sitemap location
-Sitemap:https://bekauridev.vercel.app/sitemap.xml
+Sitemap: https://bekauridev.vercel.app/sitemap.xml
