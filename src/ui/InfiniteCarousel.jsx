@@ -15,25 +15,21 @@ const InfiniteCarousel = ({ images, speed = 1, direction = "left" }) => {
     if (contentRef.current) {
       totalWidth.current = contentRef.current.scrollWidth / 2;
     }
-  }, []);
+  }, [images]);
 
-  // Animation loop with seamless reset
-  const animate = (timestamp) => {
+  // Animation loop with seamless scrolling
+  const animate = () => {
     if (!isDragging) {
       setTranslateX((prev) => {
-        let newX;
-        if (direction === "left") {
-          newX = prev - speed * 2; // Scroll to the left
-        } else {
-          newX = prev + speed * 2; // Scroll to the right
+        let newX = direction === "left" ? prev - speed : prev + speed;
+
+        // Seamless transition without resetting abruptly
+        if (direction === "left" && newX <= -totalWidth.current) {
+          return 0; // Restart without jump
+        } else if (direction === "right" && newX >= 0) {
+          return -totalWidth.current;
         }
 
-        // Reset position seamlessly when reaching end
-        if (direction === "left" && newX <= -totalWidth.current) {
-          newX += totalWidth.current;
-        } else if (direction === "right" && newX >= 0) {
-          newX -= totalWidth.current;
-        }
         return newX;
       });
     }
@@ -43,20 +39,13 @@ const InfiniteCarousel = ({ images, speed = 1, direction = "left" }) => {
   useEffect(() => {
     requestRef.current = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(requestRef.current);
-  }, [isDragging, direction, speed]);
+  }, [isDragging, direction, speed, images]);
 
   // Drag gesture handling
   const bind = useGesture({
     onDrag: ({ movement: [mx], delta: [dx] }) => {
       if (!isDragging) setIsDragging(true);
-      setTranslateX((prev) => {
-        let newX = prev + dx * 0.5;
-
-        // Handle continuous drag wrapping
-        if (newX <= -totalWidth.current) newX += totalWidth.current;
-        if (newX >= 0) newX -= totalWidth.current;
-        return newX;
-      });
+      setTranslateX((prev) => prev + dx);
     },
     onDragEnd: () => {
       setIsDragging(false);
@@ -84,7 +73,7 @@ const InfiniteCarousel = ({ images, speed = 1, direction = "left" }) => {
         }}
         {...bind()}
       >
-        {/* Double the content for seamless looping */}
+        {/* Duplicate images for seamless looping */}
         {[...images, ...images].map((image, index) => (
           <div key={index} className="relative mx-2 flex-shrink-0">
             <div className="md:h-34 pointer-events-none h-28 w-full overflow-hidden rounded-md">
