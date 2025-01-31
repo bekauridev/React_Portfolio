@@ -50,7 +50,7 @@ function UserIndroductionCard() {
   };
 
   return (
-    <div className="relative mx-2 mt-6 block max-w-md rounded-xl border border-border-primary p-5 shadow-lg">
+    <div className="relative mx-2 mt-6 block max-w-md rounded-xl border border-border-primary p-6 shadow-lg">
       <div className="mb-3 flex gap-2 sm:mb-4">
         {/* Profile Image */}
         <div

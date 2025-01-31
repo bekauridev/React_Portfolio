@@ -1,5 +1,4 @@
-import { useGesture } from "@use-gesture/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import UserIndroductionCard from "../features/user-card/UserIndroductionCard";
 
 import ProjectsPreview from "../features/projects/ProjectsPreview";

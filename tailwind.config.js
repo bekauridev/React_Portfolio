@@ -3,6 +3,9 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"], // Scan all files for Tailwind usage
   theme: {
     extend: {
+      screens: {
+        md: "910px",
+      },
       colors: {
         background: "rgba(var(--background))",
         text: "rgba(var(--text))",

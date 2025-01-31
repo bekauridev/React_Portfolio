@@ -42,10 +42,6 @@ function AppLayout() {
       </main>
       <Footer />
     </div>
-    // Ribber Band experiment
-    // <div>
-    //   <Outlet />
-    // </div>
   );
 }
 

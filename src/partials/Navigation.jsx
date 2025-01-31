@@ -40,16 +40,16 @@ function Navigation({ setIsContactsModalOpen }) {
       <nav className="sticky top-0 z-20 bg-primary-500/60 shadow-md backdrop-blur-md md:static md:bg-primary-500/60">
         <div className="mx-auto max-w-4xl px-6 sm:px-6 md:px-4">
           <div className="flex h-16 items-center justify-between">
-            <Button to={"#"} targetBlank={false} type="none">
+            <Button to="/" targetBlank={false} type="none">
               <div className="text-xl font-bold text-gray-200">&lt;/BekauriDev&gt;</div>
             </Button>
 
             {/* Desktop Menu */}
             <div className="hidden sm:flex">
-              <Button to="#blog" type="plain">
+              <Button to="blog" targetBlank={false} type="plain">
                 Blog
               </Button>
-              <Button to="#projects" type="plain">
+              <Button to="/projects" targetBlank={false} type="plain">
                 Projects
               </Button>
               <Button type="plain" callBack={() => setIsContactsModalOpen(true)}>
@@ -132,11 +132,16 @@ function Navigation({ setIsContactsModalOpen }) {
                   <MdMail size={20} />
                   Contact
                 </Button>
-                <Button to="#projects" className="text-lg" type="plain">
+                <Button
+                  to="/projects"
+                  targetBlank={false}
+                  className="text-lg"
+                  type="plain"
+                >
                   <MdOutlineWork size={20} />
                   Projects
                 </Button>
-                <Button className="text-lg" to="#blog" type="plain">
+                <Button className="text-lg" targetBlank={false} to="/blog" type="plain">
                   <FaNewspaper />
                   Blog
                 </Button>
