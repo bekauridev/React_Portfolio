@@ -19,5 +19,6 @@ export default defineConfig({
   ],
   optimizeDeps: {
     exclude: ["@use-gesture/react"],
+    include: ["fuse.js"],
   },
 });

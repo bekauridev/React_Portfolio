@@ -17,10 +17,18 @@ import Button from "../../ui/Button";
 // React Icons
 import { FaArrowRightLong } from "react-icons/fa6";
 import { RxLink2, RxLinkBreak2 } from "react-icons/rx";
+import { useNavigate } from "react-router";
 
 function ProjectsPreview() {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate("/projects");
+  };
   return (
-    <div className="group relative mx-2 mb-4 mt-6 max-w-md cursor-pointer rounded-xl border border-border-primary bg-primary-500 p-6 shadow-lg">
+    <div
+      className="group relative mx-2 mb-4 mt-6 max-w-md cursor-pointer rounded-xl border border-border-primary bg-primary-500 p-6 shadow-lg"
+      onClick={handleClick}
+    >
       <div className="relative mb-1 flex items-center gap-2">
         <MdOutlineWork className="text-text" size={25} />
         <h1 className="text-3xl font-bold text-gray-200">Projects</h1>

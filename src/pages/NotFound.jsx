@@ -2,13 +2,7 @@ import { FiArrowLeft } from "react-icons/fi";
 
 function NotFound() {
   return (
-    <div
-      className="flex flex-col items-start justify-center px-6 py-24 sm:py-32 lg:px-8"
-      style={{
-        // 133px is the height of the footer
-        height: "calc(100vh - 133px)",
-      }}
-    >
+    <div className="flex h-screen flex-col items-start justify-center bg-primary-800 px-6 py-24 sm:py-32 lg:px-8">
       <h1 className="text-lg font-semibold text-primary-300">404</h1>
       <h2 className="mt-4 text-5xl font-semibold tracking-tight text-gray-400 sm:text-7xl">
         Page not found
