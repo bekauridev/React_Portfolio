@@ -1,12 +1,15 @@
-import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 // Components
 import UserTechStackItem from "./UserTechStackItem";
-import UserInfoItem from "./UserInfoItem";
-import UserStory from "./UserStory";
+import Story from "../story";
+
+// ui
+import InfoItem from "../../ui/InfoItem";
+import Button from "../../ui/Button";
 
 // Images
 import avatarImage from "../../assets/images/avatar-images/avatar.webp";
+import storyImage from "../../assets/images/story-img/story.webp";
 
 // React Icons
 import { FaBirthdayCake } from "react-icons/fa";
@@ -14,6 +17,7 @@ import { FaMapLocationDot } from "react-icons/fa6";
 import { LuBookHeart } from "react-icons/lu";
 import { RiGlobeFill } from "react-icons/ri";
 import { TbTimezone } from "react-icons/tb";
+import { FiGithub } from "react-icons/fi";
 
 // SVG Icons
 import reactIcon from "../../assets/icons/react.svg";
@@ -26,35 +30,19 @@ import htmlIcon from "../../assets/icons/html.svg";
 import cssIcon from "../../assets/icons/css.svg";
 import tailwindcssIcon from "../../assets/icons/tailwindcss.svg";
 
-import Button from "../../ui/Button";
-
-import { FiGithub } from "react-icons/fi";
-import { useDispatch } from "react-redux";
-import { toggleStoryOpen } from "./userSlice";
+// Story Play Controls
+import useStory from "../story/hooks/useStory";
 
 function UserIndroductionCard() {
-  // Story state
-
-  const dispatch = useDispatch();
-
-  // User avatar border state
-  const [isStoryOpened, setIsStoryOpened] = useState(() => {
-    const storedValue = localStorage.getItem("StoryOpened");
-    return storedValue === "true";
-  });
-
-  const handleStoryClick = () => {
-    setIsStoryOpened(true);
-    dispatch(toggleStoryOpen());
-    localStorage.setItem("StoryOpened", true);
-  };
+  // Story Play state
+  const { isStoryOpen, handleStoryOpen, handleStoryClose, isStoryOpened } = useStory();
 
   return (
     <div className="relative mx-2 mt-6 block max-w-md rounded-xl border border-border-primary p-6 shadow-lg">
       <div className="mb-3 flex gap-2 sm:mb-4">
         {/* Profile Image */}
         <div
-          onClick={handleStoryClick}
+          onClick={handleStoryOpen}
           className={twMerge(
             "relative m-1  cursor-pointer rounded-2xl bg-gray-700 outline outline-[2px]  outline-offset-2 overflow-hidden",
             isStoryOpened ? "text-gray-600" : "text-green-600"
@@ -67,12 +55,9 @@ function UserIndroductionCard() {
             className="h-full w-full rounded-xl object-cover"
           />
 
-          {/* Overlay effect */}
+          {/* Overlay effect for image */}
           <div className="absolute inset-0 bg-primary-600/30 transition-opacity duration-300 hover:opacity-40"></div>
         </div>
-
-        {/* Story */}
-        <UserStory />
 
         <div className="flex flex-col">
           {/* Status */}
@@ -96,11 +81,11 @@ function UserIndroductionCard() {
 
       {/* User Info */}
       <div className="mb-6 flex flex-wrap gap-2">
-        <UserInfoItem Icon={FaMapLocationDot} text="Georgia/Tbilisi" />
-        <UserInfoItem Icon={TbTimezone} text="UTC+4" />
-        <UserInfoItem Icon={FaBirthdayCake} text="10-31-2005" />
-        <UserInfoItem Icon={RiGlobeFill} text="English & Georgian" />
-        <UserInfoItem Icon={LuBookHeart} text="Love Psychology" />
+        <InfoItem Icon={FaMapLocationDot} text="Georgia/Tbilisi" />
+        <InfoItem Icon={TbTimezone} text="UTC+4" />
+        <InfoItem Icon={FaBirthdayCake} text="10-31-2005" />
+        <InfoItem Icon={RiGlobeFill} text="English & Georgian" />
+        <InfoItem Icon={LuBookHeart} text="Love Psychology" />
       </div>
       {/* Tech Stack */}
       <div className="mb-4">
@@ -117,7 +102,7 @@ function UserIndroductionCard() {
         </div>
       </div>
 
-      {/* CV */}
+      {/* Buttons*/}
       <div className="mt-8 flex flex-col gap-2 sm:flex-row">
         <Button
           type="primary"
@@ -131,9 +116,15 @@ function UserIndroductionCard() {
           Github
         </Button>
       </div>
+
+      {/* Story */}
+      <Story
+        isStoryOpen={isStoryOpen}
+        onStoryClose={handleStoryClose}
+        content={storyImage}
+      />
     </div>
   );
 }
 
 export default UserIndroductionCard;
-// https://framer.com/m/framer/Particles.js

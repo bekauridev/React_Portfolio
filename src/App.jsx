@@ -3,6 +3,7 @@ import AppLayout from "./layouts/AppLayout";
 import HomePage from "./pages/HomePage";
 import NotFound from "./pages/NotFound";
 import Projects from "./features/projects/Projects";
+import UserStory from "./features/story";
 
 function App() {
   return (
@@ -10,8 +11,16 @@ function App() {
       <Routes>
         {/* Layout Routes */}
         <Route path="/" element={<AppLayout />}>
-          <Route index element={<HomePage />} />
+          <Route
+            index
+            element={
+              <HomePage>
+                <Route path="story" element={<UserStory />} />
+              </HomePage>
+            }
+          />
           <Route path="projects" element={<Projects />} />
+
           {/* <Route path="blog" element={<Blog />} /> */}
         </Route>
         <Route path="*" element={<NotFound />} />
