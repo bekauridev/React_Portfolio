@@ -4,10 +4,12 @@ import HomePage from "./pages/HomePage";
 import NotFound from "./pages/NotFound";
 import Projects from "./features/projects/Projects";
 import UserStory from "./features/story";
+import ScrollToTop from "./utils/ScrollToTop";
 
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         {/* Layout Routes */}
         <Route path="/" element={<AppLayout />}>

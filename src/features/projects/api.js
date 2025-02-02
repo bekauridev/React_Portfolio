@@ -11,7 +11,7 @@ export const projects = [
   {
     name: "Forkify",
     description:
-      "Website is designed to simplify your cooking experience. Easily search for recipes and get all the essential details ",
+      "Website is designed to easily search for recipes and get all the essential details ",
     technologies: ["HTML", "CSS", "JavaScript"],
     image: ImgSmForkify,
     gitRepo: "https://github.com/bekauridev/forkify",
