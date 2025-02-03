@@ -46,9 +46,9 @@ function Navigation({ setIsContactsModalOpen }) {
 
             {/* Desktop Menu */}
             <div className="hidden sm:flex">
-              <Button to="blog" targetBlank={false} type="plain">
+              {/* <Button to="blog" targetBlank={false} type="plain">
                 Blog
-              </Button>
+              </Button> */}
               <Button to="/projects" targetBlank={false} type="plain">
                 Projects
               </Button>
@@ -141,10 +141,10 @@ function Navigation({ setIsContactsModalOpen }) {
                   <MdOutlineWork size={20} />
                   Projects
                 </Button>
-                <Button className="text-lg" targetBlank={false} to="/blog" type="plain">
+                {/* <Button className="text-lg" targetBlank={false} to="/blog" type="plain">
                   <FaNewspaper />
                   Blog
-                </Button>
+                </Button> */}
               </div>
             </div>
           </motion.div>
