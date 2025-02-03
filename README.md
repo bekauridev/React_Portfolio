@@ -31,7 +31,4 @@ You can check out my blog posts [here](https://bekauridev.vercel.app/blog). I sh
 ## Contact 
 
 If you want to connect or have any inquiries, don’t hesitate to reach out to me through my social media [channels](https://www.linkedin.com/in/giorgi-bekauri-8ba974228/) or via email at beqauri.forwork@gmail.com. 
-## License
-
-[MIT](https://github.com/bekauridev/React_Portfolio/blob/master/LICENSE)
 
