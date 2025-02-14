@@ -4,6 +4,7 @@ import DivideLine from "../../ui/DivideLine";
 import InfiniteCarousel from "../../ui/InfiniteCarousel";
 
 // Images
+import ImgNatours from "../../assets/images/project-images/natours-sm.webp";
 import ImgSmForkify from "../../assets/images/project-images/forkify-project-sm.webp";
 import ImgSmBankist from "../../assets/images/project-images/project-omnifood-sm.webp";
 import ImgSmBankistApp from "../../assets/images/project-images/project-bankist-app-sm.webp";
@@ -53,6 +54,7 @@ function ProjectsPreview() {
           speed={0.7}
           direction={"left"}
           images={[
+            ImgNatours,
             ImgSmForkify,
             ImgSmBankist,
             ImgSmBankistApp,

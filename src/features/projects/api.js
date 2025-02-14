@@ -1,5 +1,6 @@
 // Images
 
+import ImgNatours from "../../assets/images/project-images/natours.webp";
 import ImgSmForkify from "../../assets/images/project-images/forkify-project-lg.webp";
 import ImgSmBankist from "../../assets/images/project-images/project-bankist-lg.webp";
 import ImgSmBankistApp from "../../assets/images/project-images/project-bankist-app-lg.webp";
@@ -8,6 +9,15 @@ import ImgSmOmnifood from "../../assets/images/project-images/project-omnifood-l
 import ImgSmWeatherCard from "../../assets/images/project-images/Weather-card-lg.webp";
 import ImgSmWorldWise from "../../assets/images/project-images/worldWise-project-lg.webp";
 export const projects = [
+  {
+    name: "Natours",
+    description:
+      "Website is designed to easily discover and book tours",
+    technologies: ["Node", "Express", "pug"],
+    image: ImgNatours,
+    gitRepo: "https://github.com/bekauridev/natours_api",
+    liveDemo: "https://natours-api-9og2.onrender.com/",
+  },
   {
     name: "Forkify",
     description:
