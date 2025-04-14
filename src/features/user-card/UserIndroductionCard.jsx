@@ -12,28 +12,22 @@ import avatarImage from "../../assets/images/avatar-images/avatar.webp";
 import storyImage from "../../assets/images/story-img/story.webp";
 
 // React Icons
-import { FaBirthdayCake } from "react-icons/fa";
+import { FaBirthdayCake, FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { FaMapLocationDot } from "react-icons/fa6";
 import { LuBookHeart } from "react-icons/lu";
 import { RiGlobeFill } from "react-icons/ri";
 import { TbTimezone } from "react-icons/tb";
 import { FiGithub } from "react-icons/fi";
 
-// SVG Icons
-import reactIcon from "../../assets/icons/react.svg";
-import javaScriptIcon from "../../assets/icons/javascript.svg";
-import nodeJsIcon from "../../assets/icons/nodejs.svg";
-import pythonIcon from "../../assets/icons/python.svg";
-import mngodbIcon from "../../assets/icons/mongodb.svg";
-
-import htmlIcon from "../../assets/icons/html.svg";
-import cssIcon from "../../assets/icons/css.svg";
-import tailwindcssIcon from "../../assets/icons/tailwindcss.svg";
-
 // Story Play Controls
 import useStory from "../story/hooks/useStory";
+import { techStack } from "./api";
+import { useState } from "react";
 
 function UserIndroductionCard() {
+  const [showAllTech, setShowAllTech] = useState(false);
+
+  const visibleTechStack = showAllTech ? techStack : techStack.slice(0, 6);
   // Story Play state
   const { isStoryOpen, handleStoryOpen, handleStoryClose, isStoryOpened } = useStory();
 
@@ -91,17 +85,30 @@ function UserIndroductionCard() {
       <div className="mb-4">
         <p className="text-md mb-2 font-semibold text-gray-300">Tech stack:</p>
         <div className="flex flex-wrap gap-2">
-          <UserTechStackItem IconPath={javaScriptIcon} Technology="JavaScript" />
-          <UserTechStackItem IconPath={pythonIcon} Technology="Python" />
-          <UserTechStackItem IconPath={nodeJsIcon} Technology="Node | Express" />
-          <UserTechStackItem IconPath={reactIcon} Technology="React" />
-          <UserTechStackItem IconPath={mngodbIcon} Technology="MongoDB" />
-          <UserTechStackItem IconPath={htmlIcon} Technology="Html" />
-          <UserTechStackItem IconPath={cssIcon} Technology="Css" />
-          <UserTechStackItem IconPath={tailwindcssIcon} Technology="Tailwind" />
+          {visibleTechStack.map((tech, index) => (
+            <UserTechStackItem key={index} IconPath={tech.icon} Technology={tech.name} />
+          ))}
         </div>
-      </div>
 
+        {techStack.length > 6 && (
+          <div className="mt-2 flex justify-start pl-0.5">
+            <button
+              onClick={() => setShowAllTech(!showAllTech)}
+              className="inline-flex items-center gap-1 text-sm font-medium text-blue-500  hover:text-blue-500 transition-colors"
+            >
+              {showAllTech ? (
+                <>
+                  Show less <FaChevronUp className="text-xs" />
+                </>
+              ) : (
+                <>
+                  Show more <FaChevronDown className="text-xs" />
+                </>
+              )}
+            </button>
+          </div>
+        )}
+      </div>
       {/* Buttons*/}
       <div className="mt-8 flex flex-col gap-2 sm:flex-row">
         <Button

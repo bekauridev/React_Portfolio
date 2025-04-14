@@ -1,5 +1,4 @@
 import { TbCodeCircle2Filled } from "react-icons/tb";
-// import ImgSmForkify from "../../assets/images/project-images/forkify-project-lg.webp";
 import Button from "../../ui/Button";
 import { FaGlobe } from "react-icons/fa6";
 

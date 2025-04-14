@@ -3,7 +3,8 @@ import { MdOutlineWork } from "react-icons/md";
 import DivideLine from "../../ui/DivideLine";
 import InfiniteCarousel from "../../ui/InfiniteCarousel";
 
-// Images
+// Images sm
+import GeSportStore from "../../assets/images/project-images/GeSportStore-sm.webp";
 import ImgNatours from "../../assets/images/project-images/natours-sm.webp";
 import ImgSmForkify from "../../assets/images/project-images/forkify-project-sm.webp";
 import ImgSmBankist from "../../assets/images/project-images/project-omnifood-sm.webp";
@@ -54,6 +55,7 @@ function ProjectsPreview() {
           speed={0.7}
           direction={"left"}
           images={[
+            GeSportStore,
             ImgNatours,
             ImgSmForkify,
             ImgSmBankist,

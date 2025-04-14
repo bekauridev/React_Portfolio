@@ -1,5 +1,5 @@
-// Images
-
+// Images lg
+// import GeSportStore from "../../assets/images/project-images/GeSportStore-lg.webp";
 import ImgNatours from "../../assets/images/project-images/natours.webp";
 import ImgSmForkify from "../../assets/images/project-images/forkify-project-lg.webp";
 import ImgSmBankist from "../../assets/images/project-images/project-bankist-lg.webp";
@@ -9,10 +9,18 @@ import ImgSmOmnifood from "../../assets/images/project-images/project-omnifood-l
 import ImgSmWeatherCard from "../../assets/images/project-images/Weather-card-lg.webp";
 import ImgSmWorldWise from "../../assets/images/project-images/worldWise-project-lg.webp";
 export const projects = [
+  // {
+  //   name: "Ge Sport Store",
+  //   description:
+  //     "Website is an online shop for sports gear and accessories. It's easy to use, works on all devices, supports both English and Georgian, and lets you browse and add items to your favorites with ease",
+  //   technologies: ["React", "Tailwind", "Supabase"],
+  //   image: GeSportStore,
+  //   gitRepo: "https://github.com/bekauridev/GeSportStore",
+  //   liveDemo: "https://ge-sport-store.vercel.app",
+  // },
   {
     name: "Natours",
-    description:
-      "Website is designed to easily discover and book tours",
+    description: "Website is designed to easily discover and book tours",
     technologies: ["Node", "Express", "pug"],
     image: ImgNatours,
     gitRepo: "https://github.com/bekauridev/natours_api",
