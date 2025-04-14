@@ -5,7 +5,6 @@ function Breadcrumbs() {
 
   // Split the current path to create breadcrumb items
   const pathnames = location.pathname.split("/").filter((x) => x);
-  console.log(pathnames);
   // Dynamically generate breadcrumb names based on the route
   const breadcrumbItems = pathnames.map((item, index) => {
     // You can map routes to their human-friendly names

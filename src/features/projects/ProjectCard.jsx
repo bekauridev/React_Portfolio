@@ -1,8 +1,15 @@
-import { TbCodeCircle2Filled } from "react-icons/tb";
-import Button from "../../ui/Button";
+import { useState } from "react";
+
+// icons
 import { FaGlobe } from "react-icons/fa6";
+import { TbCodeCircle2Filled } from "react-icons/tb";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+
+import Button from "../../ui/Button";
 
 function ProjectCard({ projectImg, name, description, technologies, gitRepo, liveDemo }) {
+  const [showFullDesc, setShowFullDesc] = useState(false);
+
   const handleClick = () => {
     window.open(liveDemo, "_blank");
   };
@@ -30,17 +37,39 @@ function ProjectCard({ projectImg, name, description, technologies, gitRepo, liv
         <div className="mb-3 text-xs text-primary-100/80">
           <div className="flex items-center space-x-1 sm:text-sm">{technologies}</div>
         </div>
-        <div className="mb-2 mt-1 h-24 tracking-wide text-gray-300">
-          <div className="flex items-center space-x-1 text-sm sm:text-base">
-            {description}
+        <div className="mb-2 mt-1 tracking-wide text-gray-300">
+          <div className="text-sm sm:text-base">
+            {showFullDesc
+              ? description
+              : description.length > 100
+              ? `${description.slice(0, 100)}...`
+              : `${description.slice(0, 100)}`}
           </div>
+
+          {description.length > 100 && (
+            <button
+              onClick={() => setShowFullDesc(!showFullDesc)}
+              className="inline-flex items-center gap-1 text-sm font-medium text-blue-500  hover:text-blue-500 transition-colors"
+            >
+              {showFullDesc ? (
+                <>
+                  Show less <FaChevronUp className="text-xs" />
+                </>
+              ) : (
+                <>
+                  Show more <FaChevronDown className="text-xs" />
+                </>
+              )}
+            </button>
+          )}
         </div>
       </div>
       <div className="rounded-b-lg bg-primary-500 p-6 pt-4 sm:pt-6">
         <div className="flex flex-col items-start justify-between md:flex-row">
           <Button
             type="tertiary"
-            className="w-full gap-1 bg-primary-400/30 text-gray-300 md:w-auto"
+            className="w-full gap-1 bg-primary-400/30 text-gray-300 md:w-auto disabled:cursor-not-allowed disabled:opacity-50"
+            disabled={gitRepo?.length === 0 || gitRepo === undefined}
             to={gitRepo}
           >
             <TbCodeCircle2Filled size={18} />
@@ -48,8 +77,9 @@ function ProjectCard({ projectImg, name, description, technologies, gitRepo, liv
           </Button>
           <Button
             type="tertiary"
+            disabled={liveDemo?.length === 0 || liveDemo === undefined}
             to={liveDemo}
-            className="mt-2 w-full bg-primary-400/30 text-gray-300 md:mt-0 md:w-auto"
+            className="mt-2 w-full bg-primary-400/30 text-gray-300 md:mt-0 md:w-auto disabled:cursor-not-allowed disabled:opacity-50"
           >
             <FaGlobe size={16} />
             <span>Live Demo</span>

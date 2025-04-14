@@ -57,7 +57,7 @@ function Projects() {
         />
       </div>
 
-      <div className="grid grid-cols-1 items-center justify-items-center gap-6 sm:grid-cols-2 lg:grid-cols-2">
+      <div className="grid grid-cols-1 min-h-[55vh] items-start justify-items-center gap-6 sm:grid-cols-2 lg:grid-cols-2">
         {currentProjects.length > 0 ? (
           <>
             {currentProjects.map((project, index) => (
