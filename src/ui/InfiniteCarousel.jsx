@@ -80,6 +80,8 @@ const InfiniteCarousel = ({ images, speed = 1, direction = "left" }) => {
               <img
                 src={image}
                 alt={`Slide ${index + 1}`}
+                loading="eager"
+                fetchPriority="high"
                 className="h-full w-full object-cover"
               />
             </div>
