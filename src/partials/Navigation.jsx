@@ -6,7 +6,10 @@ import { HiMenuAlt3 } from "react-icons/hi";
 import { FaNewspaper } from "react-icons/fa";
 import { MdMail, MdOutlineWork } from "react-icons/md";
 
-import logo from "../assets/images/logos/logo.png";
+import logoX1 from "../assets/images/logos/logo@x1.png";
+import logoX2 from "../assets/images/logos/logo@x2.png";
+import logoX3 from "../assets/images/logos/logo@x3.png";
+import logoX4 from "../assets/images/logos/logo@x4.png";
 import Button from "../ui/Button";
 
 import useMeasure from "react-use-measure";
@@ -56,7 +59,19 @@ function Navigation({ onOpenModal }) {
               <div className="flex items-center justify-center gap-1.5">
                 {/* Spinning Logo */}
                 <div className="h-8 w-8 transition-transform duration-700 group-hover:rotate-[360deg]">
-                  <img src={logo} alt="website logo" className="rounded-full" />
+                  <img
+                    src={logoX1}
+                    srcSet={`
+                      ${logoX1} 1x,
+                      ${logoX2} 2x,
+                      ${logoX3} 3x,
+                      ${logoX4} 4x
+                    `}
+                    alt="website logo"
+                    width={32}
+                    height={32}
+                    className="rounded-full"
+                  />
                 </div>
 
                 {/* Flipping Text */}
