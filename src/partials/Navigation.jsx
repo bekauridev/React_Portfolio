@@ -1,12 +1,14 @@
 import { useState, useRef, useEffect } from "react";
-import Button from "../ui/Button";
 
 // Icons
 import { IoClose } from "react-icons/io5";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { FaNewspaper } from "react-icons/fa";
-
 import { MdMail, MdOutlineWork } from "react-icons/md";
+
+import logo from "../assets/images/logos/logo.png";
+import Button from "../ui/Button";
+
 import useMeasure from "react-use-measure";
 import { useDragControls, useMotionValue, useAnimate, motion } from "framer-motion";
 
@@ -50,8 +52,18 @@ function Navigation({ onOpenModal }) {
       <nav className="sticky top-0 z-20 bg-primary-500/60 shadow-md backdrop-blur-md md:static md:bg-primary-500/60">
         <div className="mx-auto max-w-4xl px-6 sm:px-6 md:px-4">
           <div className="flex h-16 items-center justify-between">
-            <Button to="/" targetBlank={false} type="none">
-              <div className="text-xl font-bold text-gray-200">&lt;/BekauriDev&gt;</div>
+            <Button to="/" targetBlank={false} type="none" className="group">
+              <div className="flex items-center justify-center gap-1.5">
+                {/* Spinning Logo */}
+                <div className="h-8 w-8 transition-transform duration-700 group-hover:rotate-[360deg]">
+                  <img src={logo} alt="website logo" className="rounded-full" />
+                </div>
+
+                {/* Flipping Text */}
+                <p className="text-xl font-bold text-gray-200 transition-all duration-[750ms] group-hover:text-primary-100">
+                  BekauriDev
+                </p>
+              </div>
             </Button>
 
             {/* Desktop Menu */}

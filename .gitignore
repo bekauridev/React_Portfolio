@@ -22,4 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
 ToDo.md
+src/assets/images/logos/logo-v2.png
+src/assets/images/logos/logo-v3.png
