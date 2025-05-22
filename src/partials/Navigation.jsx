@@ -6,10 +6,10 @@ import { HiMenuAlt3 } from "react-icons/hi";
 import { FaNewspaper } from "react-icons/fa";
 import { MdMail, MdOutlineWork } from "react-icons/md";
 
-import logoX1 from "../assets/images/logos/logo@x1.png";
-import logoX2 from "../assets/images/logos/logo@x2.png";
-import logoX3 from "../assets/images/logos/logo@x3.png";
-import logoX4 from "../assets/images/logos/logo@x4.png";
+import logoX1 from "../assets/images/logos/logo@x1.webp";
+import logoX2 from "../assets/images/logos/logo@x2.webp";
+import logoX3 from "../assets/images/logos/logo@x3.webp";
+import logoX4 from "../assets/images/logos/logo@x4.webp";
 import Button from "../ui/Button";
 
 import useMeasure from "react-use-measure";

@@ -47,6 +47,8 @@ function UserIndroductionCard() {
             src={avatarImage}
             alt="User Profile"
             className="h-full w-full rounded-xl object-cover"
+            loading="eager"
+            fetchPriority="high"
           />
 
           {/* Overlay effect for image */}
