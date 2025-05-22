@@ -13,14 +13,7 @@ function App() {
       <Routes>
         {/* Layout Routes */}
         <Route path="/" element={<AppLayout />}>
-          <Route
-            index
-            element={
-              <HomePage>
-                <Route path="story" element={<UserStory />} />
-              </HomePage>
-            }
-          />
+          <Route index element={<HomePage />} />
           <Route path="projects" element={<Projects />} />
 
           {/* <Route path="blog" element={<Blog />} /> */}

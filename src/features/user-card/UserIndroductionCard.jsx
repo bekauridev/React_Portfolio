@@ -32,7 +32,7 @@ function UserIndroductionCard() {
   const { isStoryOpen, handleStoryOpen, handleStoryClose, isStoryOpened } = useStory();
 
   return (
-    <div className="relative mx-2 mt-6 block max-w-md rounded-xl border border-border-primary p-6 shadow-lg">
+    <div className="relative mx-2 mt-6 block max-w-md justify-self-center rounded-xl border border-border-primary p-6 shadow-lg">
       <div className="mb-3 flex gap-2 sm:mb-4">
         {/* Profile Image */}
         <div
@@ -94,7 +94,7 @@ function UserIndroductionCard() {
           <div className="mt-2 flex justify-start pl-0.5">
             <button
               onClick={() => setShowAllTech(!showAllTech)}
-              className="inline-flex items-center gap-1 text-sm font-medium text-blue-500  hover:text-blue-500 transition-colors"
+              className="inline-flex items-center gap-1 text-sm font-medium text-blue-500 transition-colors hover:text-blue-500"
             >
               {showAllTech ? (
                 <>
