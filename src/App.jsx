@@ -1,7 +1,8 @@
-import React, { Suspense, lazy } from "react";
-
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Suspense, lazy, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import ScrollToTop from "./utils/ScrollToTop";
+import LoadingBar from "react-top-loading-bar";
+import useTopLoadingBar from "./hooks/useTopLoadingBar";
 
 const AppLayout = lazy(() => import("./layouts/AppLayout"));
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -12,18 +13,55 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
+      <LoaderWrapper />
+    </Router>
+  );
+}
+
+function LoaderWrapper() {
+  const location = useLocation();
+  const { ref, start, complete } = useTopLoadingBar();
+
+  useEffect(() => {
+    let timeout;
+
+    const handleStart = () => {
+      start();
+      timeout = setTimeout(complete, 700);
+    };
+
+    const handleComplete = () => {
+      clearTimeout(timeout);
+      complete();
+    };
+
+    handleStart();
+
+    // This will complete when the component unmounts (new route loaded)
+    return handleComplete;
+  }, [location.pathname]);
+
+  return (
+    <>
+      <LoadingBar
+        color="rgba(var(--primary-400))"
+        height={1.5}
+        shadow={true}
+        ref={ref}
+        transitionTime={200}
+        waitingTime={400} // Add waitingTime to prevent quick flashes
+      />
+
       <Suspense fallback={null}>
         <Routes>
-          {/* Layout Routes */}
           <Route path="/" element={<AppLayout />}>
             <Route index element={<HomePage />} />
             <Route path="projects" element={<Projects />} />
-            {/* <Route path="blog" element={<Blog />} /> */}
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
-    </Router>
+    </>
   );
 }
 

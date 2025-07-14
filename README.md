@@ -15,7 +15,7 @@ https://bekauridev.vercel.app/
 - [Technologies Used](#technologies-used)
 - [Contact](#contact)
 ## 🚀 About Me
-I'm a front-end developer with 2 years of learning experience. I focus on building responsive, user-friendly interfaces. Programming and problem-solving are my passions, And I'm always focus to learn and improve.
+I'm a Web developer with 2 years of learning experience. I focus on building responsive, user-friendly interfaces. Programming and problem-solving are my passions, And I'm always focus to learn and improve.
 
 
 ## Projects

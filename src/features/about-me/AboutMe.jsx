@@ -16,9 +16,9 @@ function AboutMe() {
         </div>
         <DivideLine type="forIcon" />
         <p className="text-md mt-2 text-gray-200">
-          I&#39;m a front-end developer with 2 years of learning experience. I focus on
-          building responsive, user-friendly interfaces. Programming and problem-solving
-          are my passions, And I&#39;m always eager to learn and improve.
+          I&#39;m a web developer with 2 years of learning experience. I focus on building
+          responsive, user-friendly interfaces. Programming and problem-solving are my
+          passions, And I&#39;m always eager to learn and improve.
         </p>
       </div>
       <DivideLine type="secondary" className="w-full border-slate-700/30" />

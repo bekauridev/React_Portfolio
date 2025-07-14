@@ -69,7 +69,7 @@ function UserIndroductionCard() {
           <div className="">
             <h2 className="text-2xl font-semibold text-text">Giorgi</h2>
             <p className="text-md font-semibold text-gray-300">
-              I&#39;m a <span className="text-text"> Front-end Developer </span>
+              I&#39;m a <span className="text-text"> Web Developer </span>
             </p>
           </div>
 
