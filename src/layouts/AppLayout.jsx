@@ -33,7 +33,7 @@ function AppLayout() {
           title: "check out my blog",
           body: "Discover the blogs I've been creating and sharing on daily.dev",
           actionBtnContent: "View Blogs",
-          redirectLink: "https://app.daily.dev/squads/jsninjas",
+          redirectLink: "https://app.daily.dev/squads/bekauriblog",
         });
         break;
       default:
