@@ -49,7 +49,7 @@ function ProjectCard({ projectImg, name, description, technologies, gitRepo, liv
           {description.length > 100 && (
             <button
               onClick={() => setShowFullDesc(!showFullDesc)}
-              className="inline-flex items-center gap-1 text-sm font-medium text-blue-500  hover:text-blue-500 transition-colors"
+              className="inline-flex items-center gap-1 text-sm font-medium text-blue-500 transition-colors hover:text-blue-600"
             >
               {showFullDesc ? (
                 <>
@@ -68,7 +68,7 @@ function ProjectCard({ projectImg, name, description, technologies, gitRepo, liv
         <div className="flex flex-col items-start justify-between md:flex-row">
           <Button
             type="tertiary"
-            className="w-full gap-1 bg-primary-400/30 text-gray-300 md:w-auto disabled:cursor-not-allowed disabled:opacity-50"
+            className="w-full gap-1 bg-primary-400/30 text-gray-300 disabled:cursor-not-allowed disabled:opacity-50 md:w-auto"
             disabled={gitRepo?.length === 0 || gitRepo === undefined}
             to={gitRepo}
           >
@@ -79,7 +79,7 @@ function ProjectCard({ projectImg, name, description, technologies, gitRepo, liv
             type="tertiary"
             disabled={liveDemo?.length === 0 || liveDemo === undefined}
             to={liveDemo}
-            className="mt-2 w-full bg-primary-400/30 text-gray-300 md:mt-0 md:w-auto disabled:cursor-not-allowed disabled:opacity-50"
+            className="mt-2 w-full bg-primary-400/30 text-gray-300 disabled:cursor-not-allowed disabled:opacity-50 md:mt-0 md:w-auto"
           >
             <FaGlobe size={16} />
             <span>Live Demo</span>

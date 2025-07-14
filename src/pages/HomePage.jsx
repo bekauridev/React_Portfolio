@@ -10,7 +10,7 @@ import AboutMe from "../features/about-me/AboutMe";
 function HomePage() {
   return (
     <>
-      <div className="md:sticky md:top-0 md:z-10">
+      <div className="md:sticky md:top-2 md:z-10">
         <UserIndroductionCard />
         <ProjectsPreview />
       </div>

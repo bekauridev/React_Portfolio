@@ -14,10 +14,12 @@ import Button from "../ui/Button";
 
 import useMeasure from "react-use-measure";
 import { useDragControls, useMotionValue, useAnimate, motion } from "framer-motion";
+import { useNavigate } from "react-router";
 
 function Navigation({ onOpenModal }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const closeBtnRef = useRef(null);
+  const navigate = useNavigate();
 
   const [drawerRef, { height }] = useMeasure();
   const [scope, animate] = useAnimate();
@@ -52,10 +54,20 @@ function Navigation({ onOpenModal }) {
   }, [isMenuOpen]);
   return (
     <>
-      <nav className="sticky top-0 z-20 bg-primary-500/60 shadow-md backdrop-blur-md md:static md:bg-primary-500/60">
-        <div className="mx-auto max-w-4xl px-6 sm:px-6 md:px-4">
+      <nav className="max-w-auto sticky top-0 z-20 m-auto overflow-hidden md:static">
+        <div
+          className="mx-2 mb-5 mt-4 rounded-xl border border-slate-700/30 bg-primary-900 px-6 shadow-md backdrop-blur-sm md:px-4"
+          style={{ backdropFilter: "blur(1px)" }}
+        >
           <div className="flex h-16 items-center justify-between">
-            <Button to="/" targetBlank={false} type="none" className="group">
+            <Button
+              callBack={() => {
+                setTimeout(() => navigate("/"), 400);
+              }}
+              targetBlank={false}
+              type="none"
+              className="group"
+            >
               <div className="flex items-center justify-center gap-1.5">
                 {/* Spinning Logo */}
                 <div className="h-8 w-8 transition-transform duration-700 group-hover:rotate-[360deg]">
@@ -82,7 +94,7 @@ function Navigation({ onOpenModal }) {
             </Button>
 
             {/* Desktop Menu */}
-            <div className="hidden sm:flex">
+            <div className="hidden md:flex">
               <Button to="/projects" targetBlank={false} type="plain">
                 Projects
               </Button>
@@ -102,18 +114,32 @@ function Navigation({ onOpenModal }) {
             </div>
 
             {/* Mobile Menu Button */}
-            <div className="pt-1 sm:hidden">
+            <div className="pt-1 md:hidden">
               <button
                 aria-label="Open menu"
                 ref={closeBtnRef}
                 onClick={() => setIsMenuOpen((prev) => !prev)}
                 className="inline-block text-white hover:text-primary-300 focus:outline-none"
               >
-                {!isMenuOpen ? (
+                {/* {!isMenuOpen ? (
                   <HiMenuAlt3 className="text-gray-200" size={25} />
                 ) : (
                   <IoClose className="text-gray-200" size={25} />
-                )}
+                )} */}
+                <label className="hamburger">
+                  <input
+                    type="checkbox"
+                    checked={isMenuOpen}
+                    onChange={() => setIsMenuOpen((prev) => !prev)}
+                  />
+                  <svg viewBox="0 0 32 32">
+                    <path
+                      className="line line-top-bottom"
+                      d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"
+                    ></path>
+                    <path className="line" d="M7 16 27 16"></path>
+                  </svg>
+                </label>
               </button>
             </div>
           </div>
@@ -122,83 +148,82 @@ function Navigation({ onOpenModal }) {
 
       {/* Mobile Menu Drawer */}
       {isMenuOpen && (
-        // Outside space
         <motion.div
           ref={scope}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
           className="fixed inset-0 z-40 bg-primary-800/50"
           onClick={handleOverlayClick}
         >
-          {/* Whole bottom content position */}
-          <motion.div
-            id="drawer"
-            ref={drawerRef}
-            initial={{ y: "100%" }}
-            animate={{ y: "0%" }}
-            className="absolute bottom-0 w-full bg-primary-500/60"
-            style={{ y }}
-            drag="y"
-            dragControls={controls}
-            onClick={(e) => e.stopPropagation()}
-            onDragEnd={() => {
-              if (y.get() >= 30) {
-                // Close if dragged down
-                handleClose();
-              }
-            }}
-            dragListener={true}
-            dragElastic={{ top: 0, bottom: 1 }}
-            dragConstraints={{ top: 0, bottom: 0 }}
-            transition={{
-              type: "spring",
-              stiffness: 500,
-              damping: 50,
-              mass: 1,
-            }}
-          >
-            <div className="z-10 flex justify-center rounded-t-3xl border-b border-primary-400/20 bg-primary-700/50 py-3 backdrop-blur-sm">
-              <button
-                onPointerDown={(e) => controls.start(e)}
-                className="h-1 w-12 cursor-grab touch-none rounded-full bg-neutral-100 active:cursor-grabbing"
-              ></button>
-            </div>
-            <div className="relative z-0 h-full overflow-y-hidden">
-              <div className="flex flex-col items-center border-gray-800 bg-primary-700/50 py-4 pt-2 backdrop-blur-sm">
-                <Button
-                  className="text-lg"
-                  type="plain"
-                  callBack={() => {
-                    onOpenModal("contact");
-                    setIsMenuOpen(false);
-                  }}
-                >
-                  <MdMail size={20} />
-                  Contact
-                </Button>
-                <Button
-                  to="/projects"
-                  targetBlank={false}
-                  className="text-lg"
-                  type="plain"
-                >
-                  <MdOutlineWork size={20} />
-                  Projects
-                </Button>
-                <Button
-                  type="plain"
-                  className="text-lg"
-                  callBack={() => {
-                    onOpenModal("blog");
-                    setIsMenuOpen(false);
-                  }}
-                >
-                  <FaNewspaper />
-                  Blog
-                </Button>
+          <div className="pointer-events-none fixed inset-0 flex items-end justify-center">
+            <motion.div
+              id="drawer"
+              ref={drawerRef}
+              initial={{ y: "100%" }}
+              animate={{ y: "0%" }}
+              className="pointer-events-auto w-full max-w-lg bg-primary-900/80"
+              style={{ y }}
+              drag="y"
+              dragControls={controls}
+              onClick={(e) => e.stopPropagation()}
+              onDragEnd={() => {
+                if (y.get() >= height * 0.3) {
+                  handleClose();
+                }
+              }}
+              dragListener={true}
+              dragElastic={{ top: 0, bottom: 0.5 }}
+              dragConstraints={{ top: 0, bottom: 0 }}
+              transition={{
+                type: "spring",
+                stiffness: 400,
+                damping: 40,
+              }}
+            >
+              <div className="z-10 flex justify-center rounded-t-3xl border-b border-primary-400/20 bg-primary-700/50 py-3 backdrop-blur-sm">
+                <button
+                  onPointerDown={(e) => controls.start(e)}
+                  className="h-1 w-12 cursor-grab touch-none rounded-full bg-neutral-100 active:cursor-grabbing"
+                ></button>
               </div>
-            </div>
-          </motion.div>
+              <div className="relative z-0 h-full overflow-y-hidden">
+                <div className="flex flex-col items-center border-gray-800 bg-primary-700/50 py-4 pt-2 backdrop-blur-sm">
+                  <Button
+                    className="text-lg"
+                    type="plain"
+                    callBack={() => {
+                      onOpenModal("contact");
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    <MdMail size={20} />
+                    Contact
+                  </Button>
+                  <Button
+                    to="/projects"
+                    targetBlank={false}
+                    className="text-lg"
+                    type="plain"
+                  >
+                    <MdOutlineWork size={20} />
+                    Projects
+                  </Button>
+                  <Button
+                    type="plain"
+                    className="text-lg"
+                    callBack={() => {
+                      onOpenModal("blog");
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    <FaNewspaper />
+                    Blog
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </motion.div>
       )}
     </>

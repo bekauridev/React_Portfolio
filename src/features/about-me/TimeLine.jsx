@@ -2,7 +2,7 @@ import TimeLineCard from "./TimeLineCard";
 
 function TimeLine() {
   return (
-    <ol className="relative border-s border-gray-200 dark:border-gray-700">
+    <ol className="relative border-s border-slate-700/50">
       <TimeLineCard
         date="December, 2024"
         title="Diploma in Web Technology"

@@ -75,13 +75,12 @@ const InfiniteCarousel = ({ images, speed = 1, direction = "left" }) => {
       >
         {/* Duplicate images for seamless looping */}
         {[...images, ...images].map((image, index) => (
-          <div key={index} className="relative mx-2 flex-shrink-0">
+          <div key={index} className="relative mx-1 flex-shrink-0 sm:mx-2">
             <div className="md:h-34 pointer-events-none h-28 w-full overflow-hidden rounded-md">
               <img
                 src={image}
                 alt={`Slide ${index + 1}`}
                 loading="eager"
-                fetchPriority="high"
                 className="h-full w-full object-cover"
               />
             </div>

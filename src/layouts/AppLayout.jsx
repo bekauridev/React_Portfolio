@@ -49,23 +49,36 @@ function AppLayout() {
   };
 
   return (
-    <div className="bg-primary-900">
+    <div className="relative min-h-screen w-full bg-primary-900">
+      {/* Diagonal Fade Grid Background - Top Left */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `
+        linear-gradient(to right, rgba(71,85,105,0.3) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(71,85,105,0.3) 1px, transparent 1px)
+      `,
+          backgroundSize: "32px 32px",
+          WebkitMaskImage:
+            "radial-gradient(ellipse 80% 80% at 0% 0%, #000 40%, transparent 90%)",
+          maskImage:
+            "radial-gradient(ellipse 80% 80% at 0% 0%, #000 40%, transparent 90%)",
+        }}
+      />
       {/* Initialize Toast */}
       <ToastContainer
         position="top-right"
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
-        closeOnClick
         pauseOnHover
-        rtl={false}
         pauseOnFocusLoss
         draggable
         theme="dark"
-        toastClassName={"text-md font-poppins font-sans text-gray-300"}
-        icon={false}
+        toastClassName="font-poppins mt-2 flex bg-slate-950 px-4 py-3 text-gray-100 shadow-md backdrop-blur-sm sm:mt-0"
+        progressClassName="bg-slate-700"
+        icon={true}
       />
-      <Navigation onOpenModal={openModal} />
       <Modal
         isOpen={isModalOpen}
         closeModal={closeModal}
@@ -81,9 +94,13 @@ function AppLayout() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
-          className="relative flex flex-col items-center justify-center md:flex-row md:items-start"
+          className="relative m-auto sm:max-w-lg md:max-w-5xl"
         >
-          <Outlet />
+          <Navigation onOpenModal={openModal} />
+
+          <div className="flex flex-col items-center justify-center md:flex-row md:items-start">
+            <Outlet />
+          </div>
         </motion.div>
       </main>
       <Footer />

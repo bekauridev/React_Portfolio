@@ -36,13 +36,16 @@ function Projects() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col p-6 sm:max-w-[44rem]">
+    <div
+      className="flex flex-col rounded-xl border border-slate-700/30 bg-primary-900/10 p-6 shadow-lg"
+      style={{ backdropFilter: "blur(1px)" }}
+    >
       {/* Breadcrumbs */}
       <div className="self-center sm:self-start">
         <Breadcrumbs />
       </div>
 
-      <div className="mb-4 flex flex-col items-center justify-between gap-3 sm:mt-8 sm:flex-row sm:gap-4">
+      <div className="mb-4 flex flex-col items-center justify-between gap-3 md:mt-8 md:flex-row md:gap-4">
         <h1 className="text-4xl font-bold text-primary-100">My Projects</h1>
 
         <input
@@ -57,7 +60,7 @@ function Projects() {
         />
       </div>
 
-      <div className="grid grid-cols-1 min-h-[55vh] items-start justify-items-center gap-6 sm:grid-cols-2 lg:grid-cols-2">
+      <div className="grid min-h-[55vh] grid-cols-1 items-start justify-items-center gap-6 md:grid-cols-2 lg:grid-cols-2">
         {currentProjects.length > 0 ? (
           <>
             {currentProjects.map((project, index) => (

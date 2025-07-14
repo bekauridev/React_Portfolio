@@ -7,11 +7,9 @@
 @layer base {
   :root {
     --background: 243, 243, 243, 1; /* #f3f3f3 */
-    --text: 194, 188, 246; /*#c5c0fa */
+    --text: 197, 192, 250, 0.9; /* base #c5c0fa  */
 
     --border: 19, 12, 93; /* #130C5D */
-    --border-secondary: 187, 182, 245;
-    /* --primary-light: 255, 247, 240; */
     --primary-50: 255, 247, 240; /* #fff7f0 (old 50) */
     --primary-100: 179, 181, 247; /* #b3b5f7 */
     --primary-200: 156, 158, 245; /* #b5b7f7 */
@@ -28,6 +26,46 @@
     max-width: 100%;
     box-sizing: border-box;
   }
+}
+
+/* hamburger menu */
+.hamburger {
+  cursor: pointer;
+}
+
+.hamburger input {
+  display: none;
+}
+
+.hamburger svg {
+  /* The size of the SVG defines the overall size */
+  height: 2.2em;
+  /* Define the transition for transforming the SVG */
+  transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.line {
+  fill: none;
+  stroke: white;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 3;
+  /* Define the transition for transforming the Stroke */
+  transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
+    stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.line-top-bottom {
+  stroke-dasharray: 12 63;
+}
+
+.hamburger input:checked + svg {
+  transform: rotate(-45deg);
+}
+
+.hamburger input:checked + svg .line-top-bottom {
+  stroke-dasharray: 20 300;
+  stroke-dashoffset: -32.42;
 }
 
 /* inter-100 - latin */

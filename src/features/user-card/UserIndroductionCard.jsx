@@ -32,7 +32,10 @@ function UserIndroductionCard() {
   const { isStoryOpen, handleStoryOpen, handleStoryClose, isStoryOpened } = useStory();
 
   return (
-    <div className="relative mx-2 mt-6 block max-w-md justify-self-center rounded-xl border border-border-primary p-6 shadow-lg">
+    <div
+      className="relative mx-2 block max-w-lg justify-self-center rounded-xl border border-slate-700/30 bg-primary-900/10 p-6 shadow-lg"
+      style={{ backdropFilter: "blur(1px)" }}
+    >
       <div className="mb-3 flex gap-2 sm:mb-4">
         {/* Profile Image */}
         <div
@@ -48,7 +51,6 @@ function UserIndroductionCard() {
             alt="User Profile"
             className="h-full w-full rounded-xl object-cover"
             loading="eager"
-            fetchPriority="high"
           />
 
           {/* Overlay effect for image */}
@@ -96,7 +98,7 @@ function UserIndroductionCard() {
           <div className="mt-2 flex justify-start pl-0.5">
             <button
               onClick={() => setShowAllTech(!showAllTech)}
-              className="inline-flex items-center gap-1 text-sm font-medium text-blue-500 transition-colors hover:text-blue-500"
+              className="inline-flex items-center gap-1 text-sm font-medium text-text transition-colors"
             >
               {showAllTech ? (
                 <>
@@ -112,13 +114,13 @@ function UserIndroductionCard() {
         )}
       </div>
       {/* Buttons*/}
-      <div className="mt-8 flex flex-col gap-2 sm:flex-row">
+      <div className="mt-8 flex flex-row gap-2">
         <Button
           type="primary"
           className="text-md"
           to={`https://drive.google.com/file/d/1XiN0YlClQBnoOUAYAqnmDEFQmEqW5cns/view?usp=sharing`}
         >
-          Download CV
+          Resume
         </Button>
         <Button type="secondary" to={"https://github.com/bekauridev"} className="text-md">
           <FiGithub strokeWidth={2.5} />
