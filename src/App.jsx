@@ -1,6 +1,5 @@
 import { Suspense, lazy, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
-import ScrollToTop from "./utils/ScrollToTop";
 import LoadingBar from "react-top-loading-bar";
 import useTopLoadingBar from "./hooks/useTopLoadingBar";
 
@@ -12,7 +11,6 @@ const Projects = lazy(() => import("./features/projects/Projects"));
 function App() {
   return (
     <Router>
-      <ScrollToTop />
       <LoaderWrapper />
     </Router>
   );
