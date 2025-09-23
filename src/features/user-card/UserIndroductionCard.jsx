@@ -9,7 +9,6 @@ import Button from "../../ui/Button";
 
 // Images
 import avatarImage from "../../assets/images/avatar-images/avatar.webp";
-import storyImage from "../../assets/images/story-img/story.webp";
 
 // React Icons
 import { FaBirthdayCake, FaChevronDown, FaChevronUp } from "react-icons/fa";
@@ -29,14 +28,14 @@ function UserIndroductionCard() {
 
   const visibleTechStack = showAllTech ? techStack : techStack.slice(0, 6);
   // Story Play state
-  const { isStoryOpen, handleStoryOpen, handleStoryClose, isStoryOpened } = useStory();
+  const { handleStoryOpen, isStoryOpened } = useStory();
 
   return (
     <div
-      className="relative mx-2 block max-w-lg justify-self-center rounded-xl border border-slate-700/30 bg-primary-900/10 p-6 shadow-lg"
+      className="relative block max-w-lg p-6 mx-2 border shadow-lg justify-self-center rounded-xl border-slate-700/30 bg-primary-900/10"
       style={{ backdropFilter: "blur(1px)" }}
     >
-      <div className="mb-3 flex gap-2 sm:mb-4">
+      <div className="flex gap-2 mb-3 sm:mb-4">
         {/* Profile Image */}
         <div
           onClick={handleStoryOpen}
@@ -49,18 +48,18 @@ function UserIndroductionCard() {
           <img
             src={avatarImage}
             alt="User Profile"
-            className="h-full w-full rounded-xl object-cover"
+            className="object-cover w-full h-full rounded-xl"
             loading="eager"
           />
 
           {/* Overlay effect for image */}
-          <div className="absolute inset-0 bg-primary-600/30 transition-opacity duration-300 hover:opacity-40"></div>
+          <div className="absolute inset-0 transition-opacity duration-300 bg-primary-600/30 hover:opacity-40"></div>
         </div>
 
         <div className="flex flex-col">
           {/* Status */}
           <div>
-            <span className="inline-block rounded-full bg-green-600/25 px-3 py-1 text-xs font-semibold text-green-500">
+            <span className="inline-block px-3 py-1 text-xs font-semibold text-green-500 rounded-full bg-green-600/25">
               Available To Work
             </span>
           </div>
@@ -68,7 +67,7 @@ function UserIndroductionCard() {
           {/* Name and Title */}
           <div className="">
             <h2 className="text-2xl font-semibold text-text">Giorgi</h2>
-            <p className="text-md font-semibold text-gray-300">
+            <p className="font-semibold text-gray-300 text-md">
               I&#39;m a <span className="text-text"> Web Developer </span>
             </p>
           </div>
@@ -78,7 +77,7 @@ function UserIndroductionCard() {
       </div>
 
       {/* User Info */}
-      <div className="mb-6 flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2 mb-6">
         <InfoItem Icon={FaMapLocationDot} text="Georgia/Tbilisi" />
         <InfoItem Icon={TbTimezone} text="UTC+4" />
         <InfoItem Icon={FaBirthdayCake} text="10-31-2005" />
@@ -87,7 +86,7 @@ function UserIndroductionCard() {
       </div>
       {/* Tech Stack */}
       <div className="mb-4">
-        <p className="text-md mb-2 font-semibold text-gray-300">Tech stack:</p>
+        <p className="mb-2 font-semibold text-gray-300 text-md">Tech stack:</p>
         <div className="flex flex-wrap gap-2">
           {visibleTechStack.map((tech, index) => (
             <UserTechStackItem key={index} IconPath={tech.icon} Technology={tech.name} />
@@ -98,7 +97,7 @@ function UserIndroductionCard() {
           <div className="mt-2 flex justify-start pl-0.5">
             <button
               onClick={() => setShowAllTech(!showAllTech)}
-              className="inline-flex items-center gap-1 text-sm font-medium text-text transition-colors"
+              className="inline-flex items-center gap-1 text-sm font-medium transition-colors text-text"
             >
               {showAllTech ? (
                 <>
@@ -114,7 +113,7 @@ function UserIndroductionCard() {
         )}
       </div>
       {/* Buttons*/}
-      <div className="mt-8 flex flex-row gap-2">
+      <div className="flex flex-row gap-2 mt-8">
         <Button
           type="primary"
           className="text-md"
@@ -127,13 +126,6 @@ function UserIndroductionCard() {
           Github
         </Button>
       </div>
-
-      {/* Story */}
-      <Story
-        isStoryOpen={isStoryOpen}
-        onStoryClose={handleStoryClose}
-        content={storyImage}
-      />
     </div>
   );
 }

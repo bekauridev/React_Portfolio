@@ -30,7 +30,7 @@ function Story({ isStoryOpen, onStoryClose, content }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex cursor-pointer items-center justify-center bg-black bg-opacity-90"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black cursor-pointer bg-opacity-90"
       onClick={handleClickOutside}
     >
       {/* Main Story Animation */}
@@ -65,17 +65,17 @@ function Story({ isStoryOpen, onStoryClose, content }) {
 
         {/* Story Content */}
         <motion.div
-          className="flex flex-grow items-center justify-center"
+          className="flex items-center justify-center flex-grow"
           onMouseDown={handlePause}
           onMouseUp={handleResume}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
-          <div className="pointer-events-none h-full">
+          <div className="h-full pointer-events-none">
             <img
               src={content}
               alt="Story Content"
-              className="h-full w-full object-contain"
+              className="object-contain w-full h-full"
             />
           </div>
         </motion.div>

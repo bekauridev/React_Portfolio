@@ -6,11 +6,16 @@ import { motion } from "framer-motion";
 import { ToastContainer } from "react-toastify";
 import { useState } from "react";
 import Modal from "../components/Modal";
+import Story from "../features/story";
+import useStory from "../features/story/hooks/useStory";
+
+import storyImage from "../assets/images/story-img/story.webp";
 
 function AppLayout() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState(null);
   const [modalContent, setModalContent] = useState({});
+  const { isStoryOpen, handleStoryClose } = useStory();
 
   // Open Modal and set content dynamically
   const openModal = (type) => {
@@ -49,7 +54,7 @@ function AppLayout() {
   };
 
   return (
-    <div className="relative min-h-screen w-full bg-primary-900">
+    <div className="relative w-full min-h-screen bg-primary-900">
       {/* Diagonal Fade Grid Background - Top Left */}
       <div
         className="absolute inset-0 z-0"
@@ -87,6 +92,12 @@ function AppLayout() {
         modalBody={modalContent.body}
         actionBtnContent={modalContent.actionBtnContent}
         redirectLink={modalContent.redirectLink}
+      />
+      {/* Story */}
+      <Story
+        isStoryOpen={isStoryOpen}
+        onStoryClose={handleStoryClose}
+        content={storyImage}
       />
       <main>
         <motion.div

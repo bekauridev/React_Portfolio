@@ -13,7 +13,7 @@ function StoryFooter({ isHeartClicked, setIsHeartClicked, timeToHide }) {
         type="text"
         disabled
         placeholder="Send Message"
-        className="flex-grow rounded-full bg-gray-800 px-4 py-2 text-sm text-white placeholder-gray-400"
+        className="flex-grow px-4 py-2 text-sm text-white placeholder-gray-400 bg-gray-800 rounded-full disabled:bg-gray-700 disabled:cursor-not-allowed"
       />
       <div className="cursor-pointer" onClick={() => setIsHeartClicked(!isHeartClicked)}>
         {isHeartClicked ? (
