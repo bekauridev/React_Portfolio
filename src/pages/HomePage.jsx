@@ -1,5 +1,5 @@
 // Feature user-card
-import UserIndroductionCard from "../features/user-card/UserIndroductionCard";
+import UserIntroductionCard from "../features/user-card/UserIntroductionCard";
 
 // Feature projects
 import ProjectsPreview from "../features/projects/ProjectsPreview";
@@ -11,7 +11,7 @@ function HomePage() {
   return (
     <>
       <div className="md:sticky md:top-2 md:z-10">
-        <UserIndroductionCard />
+        <UserIntroductionCard />
         <ProjectsPreview />
       </div>
       <AboutMe />
