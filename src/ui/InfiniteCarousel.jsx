@@ -13,7 +13,11 @@ const InfiniteCarousel = ({ images, speed = 1, direction = "left" }) => {
   // Initialize content width
   useEffect(() => {
     if (contentRef.current) {
-      totalWidth.current = contentRef.current.scrollWidth / 2;
+      // Get the width of just one set of images
+      const firstChild = contentRef.current.firstChild;
+      if (firstChild) {
+        totalWidth.current = firstChild.offsetWidth * images.length;
+      }
     }
   }, [images]);
 
@@ -23,11 +27,11 @@ const InfiniteCarousel = ({ images, speed = 1, direction = "left" }) => {
       setTranslateX((prev) => {
         let newX = direction === "left" ? prev - speed : prev + speed;
 
-        // Seamless transition without resetting abruptly
+        // Seamless loop: reset position when one full set has scrolled
         if (direction === "left" && newX <= -totalWidth.current) {
-          return 0; // Restart without jump
+          return newX + totalWidth.current; // Jump back by exactly one set width
         } else if (direction === "right" && newX >= 0) {
-          return -totalWidth.current;
+          return newX - totalWidth.current;
         }
 
         return newX;
@@ -38,7 +42,11 @@ const InfiniteCarousel = ({ images, speed = 1, direction = "left" }) => {
 
   useEffect(() => {
     requestRef.current = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(requestRef.current);
+    return () => {
+      if (requestRef.current) {
+        cancelAnimationFrame(requestRef.current);
+      }
+    };
   }, [isDragging, direction, speed, images]);
 
   // Drag gesture handling
@@ -69,7 +77,7 @@ const InfiniteCarousel = ({ images, speed = 1, direction = "left" }) => {
         style={{
           transform: `translateX(${translateX}px)`,
           touchAction: "none",
-          transition: isDragging ? "none" : "transform 0s linear",
+          willChange: "transform",
         }}
         {...bind()}
       >
@@ -82,6 +90,7 @@ const InfiniteCarousel = ({ images, speed = 1, direction = "left" }) => {
                 alt={`Slide ${index + 1}`}
                 loading="eager"
                 className="h-full w-full object-cover"
+                draggable="false"
               />
             </div>
 
@@ -92,5 +101,4 @@ const InfiniteCarousel = ({ images, speed = 1, direction = "left" }) => {
     </div>
   );
 };
-
 export default InfiniteCarousel;
