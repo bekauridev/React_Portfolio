@@ -1,69 +1,51 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useGesture } from "@use-gesture/react";
 
 const InfiniteCarousel = ({ images, speed = 1, direction = "left" }) => {
   const containerRef = useRef(null);
   const contentRef = useRef(null);
-  const [translateX, setTranslateX] = useState(0);
+  const positionRef = useRef(0);
+  const animationRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
 
-  const totalWidth = useRef(0);
-  const requestRef = useRef(null);
-
-  // Initialize content width
+  // Animate using rAF without React state updates per frame
   useEffect(() => {
-    if (contentRef.current) {
-      // Get the width of just one set of images
-      const firstChild = contentRef.current.firstChild;
-      if (firstChild) {
-        totalWidth.current = firstChild.offsetWidth * images.length;
-      }
-    }
-  }, [images]);
+    const animate = () => {
+      if (!isDragging && contentRef.current) {
+        const singleSetWidth = contentRef.current.scrollWidth / 3; // since tripled
+        const dir = direction === "left" ? -1 : 1;
+        positionRef.current += dir * speed;
 
-  // Animation loop with seamless scrolling
-  const animate = () => {
-    if (!isDragging) {
-      setTranslateX((prev) => {
-        let newX = direction === "left" ? prev - speed : prev + speed;
-
-        // Seamless loop: reset position when one full set has scrolled
-        if (direction === "left" && newX <= -totalWidth.current) {
-          return newX + totalWidth.current; // Jump back by exactly one set width
-        } else if (direction === "right" && newX >= 0) {
-          return newX - totalWidth.current;
+        // Seamless reset
+        if (Math.abs(positionRef.current) >= singleSetWidth) {
+          positionRef.current = 0;
         }
 
-        return newX;
-      });
-    }
-    requestRef.current = requestAnimationFrame(animate);
-  };
-
-  useEffect(() => {
-    requestRef.current = requestAnimationFrame(animate);
-    return () => {
-      if (requestRef.current) {
-        cancelAnimationFrame(requestRef.current);
+        contentRef.current.style.transform = `translateX(${positionRef.current}px)`;
       }
-    };
-  }, [isDragging, direction, speed, images]);
 
-  // Drag gesture handling
+      animationRef.current = requestAnimationFrame(animate);
+    };
+
+    animationRef.current = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationRef.current);
+  }, [speed, direction, isDragging]);
+
+  // Drag handling
   const bind = useGesture({
-    onDrag: ({ movement: [mx], delta: [dx] }) => {
-      if (!isDragging) setIsDragging(true);
-      setTranslateX((prev) => prev + dx);
+    onDrag: ({ delta: [dx] }) => {
+      setIsDragging(true);
+      positionRef.current += dx;
+      if (contentRef.current)
+        contentRef.current.style.transform = `translateX(${positionRef.current}px)`;
     },
-    onDragEnd: () => {
-      setIsDragging(false);
-    },
+    onDragEnd: () => setIsDragging(false),
   });
 
   return (
     <div
-      className="relative w-full overflow-hidden"
       ref={containerRef}
+      className="relative w-full overflow-hidden"
       style={{
         maskImage:
           "linear-gradient(to right, transparent 0%, black 30%, black 70%, transparent 100%)",
@@ -72,33 +54,32 @@ const InfiniteCarousel = ({ images, speed = 1, direction = "left" }) => {
       }}
     >
       <div
-        className="flex"
         ref={contentRef}
-        style={{
-          transform: `translateX(${translateX}px)`,
-          touchAction: "none",
-          willChange: "transform",
-        }}
+        className="flex"
+        style={{ willChange: "transform", touchAction: "none" }}
         {...bind()}
       >
-        {/* Duplicate images for seamless looping */}
-        {[...images, ...images].map((image, index) => (
-          <div key={index} className="relative mx-1 flex-shrink-0 sm:mx-2">
-            <div className="md:h-34 pointer-events-none h-28 w-full overflow-hidden rounded-md">
+        {/* Triple images for smooth wrap */}
+        {[...images, ...images, ...images].map((image, i) => (
+          <div
+            key={i}
+            className="pointer-events-none relative mx-1 flex-shrink-0 sm:mx-2"
+          >
+            <div className="md:h-34 h-28 w-full overflow-hidden rounded-md">
               <img
                 src={image}
-                alt={`Slide ${index + 1}`}
-                loading="eager"
-                className="h-full w-full object-cover"
+                alt={`Slide ${(i % images.length) + 1}`}
+                className="h-full w-full select-none object-cover"
                 draggable="false"
+                loading="eager"
               />
             </div>
-
-            <div className="transition-bg absolute inset-0 rounded-md bg-primary-700/40 duration-200 group-hover:bg-primary-700/35" />
+            <div className="absolute inset-0 rounded-md bg-primary-700/40 transition-colors duration-200 group-hover:bg-primary-700/35" />
           </div>
         ))}
       </div>
     </div>
   );
 };
+
 export default InfiniteCarousel;
