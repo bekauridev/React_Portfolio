@@ -14,7 +14,7 @@ import tailwindcssIcon from "../../assets/icons/tailwindcss.svg";
 export const techStack = [
   { icon: javaScriptIcon, name: "JavaScript" },
   { icon: laravelIcon, name: "Laravel" },
-  { icon: nodeJsIcon, name: "Node.js | Express" },
+  { icon: nodeJsIcon, name: "Node.js ･ Express.js" },
   { icon: reactIcon, name: "React" },
   // { icon: djangoIcon, name: "Django" },
 

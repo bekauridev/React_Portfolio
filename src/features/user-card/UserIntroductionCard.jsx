@@ -1,14 +1,10 @@
 import { twMerge } from "tailwind-merge";
 // Components
 import UserTechStackItem from "./UserTechStackItem";
-import Story from "../story";
 
 // ui
 import InfoItem from "../../ui/InfoItem";
 import Button from "../../ui/Button";
-
-// Images
-import avatarImage from "../../assets/images/avatar-images/avatar.webp";
 
 // React Icons
 import { FaBirthdayCake, FaChevronDown, FaChevronUp } from "react-icons/fa";
@@ -40,15 +36,14 @@ function UserIntroductionCard() {
         <div
           onClick={handleStoryOpen}
           className={twMerge(
-            "relative m-1  cursor-pointer rounded-2xl bg-gray-700 outline outline-[2px]  outline-offset-2 overflow-hidden",
+            "relative m-1 w-[80px] h-[87px] cursor-pointer rounded-2xl bg-gray-700 outline outline-[2px]  outline-offset-2 overflow-hidden",
             isStoryOpened ? "text-gray-600" : "text-green-600"
           )}
         >
           {/* Image */}
           <img
-            src={avatarImage}
-            alt="User Profile"
-            className="h-full w-full rounded-xl object-cover"
+            src="https://res.cloudinary.com/duybptmkx/image/upload/c_fill,ar_3:4/v1762891365/Resume-image_cphpgc.jpg"
+            alt="BekauriDev Portfolio Avatar image"
             loading="eager"
           />
 

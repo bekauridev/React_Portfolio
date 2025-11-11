@@ -1,6 +1,4 @@
 import { twMerge } from "tailwind-merge";
-// Img
-import avatarImage from "../../../assets/images/avatar-images/avatar.webp";
 
 // Icons
 import { IoClose, IoPause, IoPlay, IoStar } from "react-icons/io5";
@@ -16,7 +14,10 @@ function StoryHeader({ timeToHide, isPaused, handleResume, handlePause, handleCl
     >
       <div className="flex items-center gap-2">
         <div className="h-10 w-10 overflow-hidden rounded-full">
-          <img src={avatarImage} alt="User Avatar" />
+          <img
+            src="https://res.cloudinary.com/duybptmkx/image/upload/c_fill,ar_3:4/v1762891365/Resume-image_cphpgc.jpg"
+            alt="User Avatar"
+          />
         </div>
         <span className="font-semibold text-gray-200">BekauriDev</span>
       </div>
