@@ -2,19 +2,8 @@ import { MdOutlineWork } from "react-icons/md";
 // UI
 import DivideLine from "../../ui/DivideLine";
 import InfiniteCarousel from "../../ui/InfiniteCarousel";
-
-// Images sm
-import GeSportStore from "../../assets/images/project-images/GeSportStore-sm.webp";
-import ImgNatours from "../../assets/images/project-images/natours-sm.webp";
-import ImgSmForkify from "../../assets/images/project-images/forkify-project-sm.webp";
-import ImgSmBankist from "../../assets/images/project-images/project-omnifood-sm.webp";
-import ImgSmBankistApp from "../../assets/images/project-images/project-bankist-app-sm.webp";
-import ImgSmMapty from "../../assets/images/project-images/project-mapty-sm.webp";
-import ImgSmOmnifood from "../../assets/images/project-images/project-omnifood-sm.webp";
-import ImgSmWeatherCard from "../../assets/images/project-images/Weather-card-sm.webp";
-import ImgSmWorldWise from "../../assets/images/project-images/worldWise-project-sm.webp";
-
 import Button from "../../ui/Button";
+import { projects } from "./api";
 
 // React Icons
 import { FaArrowRightLong } from "react-icons/fa6";
@@ -23,6 +12,7 @@ import { useNavigate } from "react-router";
 
 function ProjectsPreview() {
   const navigate = useNavigate();
+  const carouselImages = projects.map((project) => project.thumbnail);
   const handleClick = () => {
     navigate("/projects");
   };
@@ -54,21 +44,7 @@ function ProjectsPreview() {
 
       {/* Projects carousel */}
       <div className="mt-4">
-        <InfiniteCarousel
-          speed={0.7}
-          direction={"left"}
-          images={[
-            GeSportStore,
-            ImgNatours,
-            ImgSmForkify,
-            ImgSmBankist,
-            ImgSmBankistApp,
-            ImgSmMapty,
-            ImgSmOmnifood,
-            ImgSmWeatherCard,
-            ImgSmWorldWise,
-          ]}
-        />
+        <InfiniteCarousel speed={0.7} direction={"left"} images={carouselImages} />
       </div>
 
       {/* Hover button */}

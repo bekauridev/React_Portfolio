@@ -6,7 +6,8 @@ import useTopLoadingBar from "./hooks/useTopLoadingBar";
 const AppLayout = lazy(() => import("./layouts/AppLayout"));
 const HomePage = lazy(() => import("./pages/HomePage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
-const Projects = lazy(() => import("./features/projects/Projects"));
+const Projects = lazy(() => import("./pages/ProjectsPage"));
+const ProjectDetails = lazy(() => import("./pages/ProjectsDetailsPage"));
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function LoaderWrapper() {
           <Route path="/" element={<AppLayout />}>
             <Route index element={<HomePage />} />
             <Route path="projects" element={<Projects />} />
+            <Route path="projects/:slug" element={<ProjectDetails />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

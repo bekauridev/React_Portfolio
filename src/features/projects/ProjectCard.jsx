@@ -1,92 +1,110 @@
 import { useState } from "react";
-
-// icons
+import { motion } from "framer-motion";
 import { FaGlobe } from "react-icons/fa6";
-import { TbCodeCircle2Filled } from "react-icons/tb";
-import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { GoInfo } from "react-icons/go";
+import { useNavigate } from "react-router-dom";
+import { cn } from "../../utils/helpers";
+function ProjectCard({ cardImage, name, slug, slogan, technologies, liveDemo }) {
+  const navigate = useNavigate();
+  const [isHovered, setIsHovered] = useState(false); // shared hover state
 
-import Button from "../../ui/Button";
-
-function ProjectCard({ projectImg, name, description, technologies, gitRepo, liveDemo }) {
-  const [showFullDesc, setShowFullDesc] = useState(false);
-
-  const handleClick = () => {
-    window.open(liveDemo, "_blank");
+  const handleGoToDetails = () => {
+    navigate(`/projects/${slug}`);
   };
+
   return (
-    <div className="group relative w-full max-w-xs rounded-lg border border-border-primary bg-primary-500/70 shadow-lg transition-all duration-300 hover:shadow-xl sm:max-w-sm">
-      {/* Image Container with Fixed Size */}
+    <motion.article
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.1 }}
+      className="relative flex flex-col overflow-hidden rounded-xl border border-slate-700/30 bg-primary-900/10 shadow-lg backdrop-blur-xl transition-all duration-300"
+      style={{ backdropFilter: "blur(1px)" }}
+    >
+      {/* IMAGE */}
       <div
-        className="mb-4 h-auto w-full cursor-pointer overflow-hidden rounded-t-lg pb-0 sm:h-48 sm:p-0"
-        onClick={handleClick}
+        className="relative h-52 w-full cursor-pointer overflow-hidden"
+        onClick={handleGoToDetails}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
         <img
-          className="h-full w-full object-cover opacity-80 transition-opacity group-hover:opacity-90"
-          src={projectImg}
-          alt="project image"
+          src={cardImage}
+          alt={`${name} cover`}
+          className="h-full w-full object-cover transition-transform duration-500"
+          style={{ transform: isHovered ? "scale(1.02)" : "scale(1)" }}
         />
-      </div>
-
-      {/* Card Content */}
-      <div className="px-6">
-        <a href={liveDemo} target="_blank">
-          <h5 className="inline-block text-xl font-bold tracking-tight text-gray-300 underline-offset-2 transition-all group-hover:underline sm:text-2xl">
-            {name}
-          </h5>
-        </a>
-        <div className="mb-3 text-xs text-primary-100/80">
-          <div className="flex items-center space-x-1 sm:text-sm">{technologies}</div>
-        </div>
-        <div className="mb-2 mt-1 tracking-wide text-gray-300">
-          <div className="text-sm sm:text-base">
-            {showFullDesc
-              ? description
-              : description.length > 100
-              ? `${description.slice(0, 100)}...`
-              : `${description.slice(0, 100)}`}
-          </div>
-
-          {description.length > 100 && (
-            <button
-              onClick={() => setShowFullDesc(!showFullDesc)}
-              className="inline-flex items-center gap-1 text-sm font-medium text-blue-500 transition-colors hover:text-blue-600"
-            >
-              {showFullDesc ? (
-                <>
-                  Show less <FaChevronUp className="text-xs" />
-                </>
-              ) : (
-                <>
-                  Show more <FaChevronDown className="text-xs" />
-                </>
-              )}
-            </button>
+        {/* Overlay effect for image */}
+        <div
+          className={cn(
+            "absolute inset-0 bg-primary-600/30 transition-opacity duration-300",
+            isHovered && "opacity-20"
           )}
+        ></div>
+
+        {/* Top Right Icon */}
+        <div
+          className={`absolute right-3 top-3 z-10 rounded-full bg-gray-900/70 p-1 backdrop-blur-md transition-all duration-300 ${
+            isHovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1"
+          }`}
+        >
+          <GoInfo size={22} className="text-indigo-300" />
         </div>
+
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/40 to-transparent" />
       </div>
-      <div className="rounded-b-lg bg-primary-500 p-6 pt-4 sm:pt-6">
-        <div className="flex flex-col items-start justify-between md:flex-row">
-          <Button
-            type="tertiary"
-            className="w-full gap-1 bg-primary-400/30 text-gray-300 disabled:cursor-not-allowed disabled:opacity-50 md:w-auto"
-            disabled={gitRepo?.length === 0 || gitRepo === undefined}
-            to={gitRepo}
+
+      {/* CONTENT */}
+      <div className="flex flex-1 flex-col p-6">
+        <h2 className="text-xl font-semibold transition">
+          <span
+            onClick={handleGoToDetails}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className={`cursor-pointer transition ${
+              isHovered ? "text-indigo-300" : "text-white hover:text-indigo-300"
+            }`}
           >
-            <TbCodeCircle2Filled size={18} />
-            <span>Source</span>
-          </Button>
-          <Button
-            type="tertiary"
-            disabled={liveDemo?.length === 0 || liveDemo === undefined}
-            to={liveDemo}
-            className="mt-2 w-full bg-primary-400/30 text-gray-300 disabled:cursor-not-allowed disabled:opacity-50 md:mt-0 md:w-auto"
-          >
-            <FaGlobe size={16} />
-            <span>Live Demo</span>
-          </Button>
+            {name}
+          </span>
+        </h2>
+
+        {/* Technologies */}
+        <div className="mt-2 flex flex-wrap gap-2">
+          {technologies.slice(0, 3).map((tech, idx) => (
+            <span
+              key={idx}
+              className="rounded-full bg-gray-700/40 px-2.5 py-0.5 text-xs text-gray-300"
+            >
+              {tech}
+            </span>
+          ))}
         </div>
+
+        {/* slogan */}
+        <p className="mb-1 mt-3 line-clamp-3 text-sm text-gray-300">{slogan}</p>
       </div>
-    </div>
+
+      {/* Bottom actions */}
+      <div className="flex items-center justify-between gap-3 border-t border-slate-700/30 px-5 py-3">
+        <button
+          onClick={handleGoToDetails}
+          className="rounded-lg bg-indigo-600/70 px-4 py-2 text-sm font-medium text-white transition hover:bg-indigo-500"
+        >
+          View More
+        </button>
+
+        {liveDemo && (
+          <a
+            href={liveDemo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 text-sm text-indigo-400 hover:text-indigo-300"
+          >
+            <FaGlobe size={16} /> Live Demo
+          </a>
+        )}
+      </div>
+    </motion.article>
   );
 }
 

@@ -1,85 +1,206 @@
-// Images lg
-import GeSportStore from "../../assets/images/project-images/GeSportStore-lg.webp";
-import ImgNatours from "../../assets/images/project-images/natours.webp";
-import ImgSmForkify from "../../assets/images/project-images/forkify-project-lg.webp";
-import ImgSmBankist from "../../assets/images/project-images/project-bankist-lg.webp";
-import ImgSmBankistApp from "../../assets/images/project-images/project-bankist-app-lg.webp";
-import ImgSmMapty from "../../assets/images/project-images/project-mapty-lg.webp";
-import ImgSmOmnifood from "../../assets/images/project-images/project-omnifood-lg.webp";
-import ImgSmWeatherCard from "../../assets/images/project-images/Weather-card-lg.webp";
-import ImgSmWorldWise from "../../assets/images/project-images/worldWise-project-lg.webp";
 export const projects = [
   {
+    id: "1",
+    slug: "ge-sport-store",
     name: "Ge Sport Store",
+    slogan: "Discover premium sports gear and accessories at your fingertips",
     description:
-      "Website is an online shop for sports gear and accessories. It's easy to use, works on all devices, supports both English and Georgian, and lets you browse and add items to your favorites with ease",
+      "Website is an online shop for sports gear and accessories. It's easy to use, works on all devices, supports both English and Georgian, and lets you browse and add items to your favorites with ease.",
     technologies: ["React", "Tailwind", "Supabase"],
-    image: GeSportStore,
+    gallery: [
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_900,c_fill,g_north,f_webp/v1763397274/React_portfolio/Ge_Sport_Store/ge-sport-main-page_b9re0s.png",
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_900,c_fill,g_north,f_webp/v1763397274/React_portfolio/Ge_Sport_Store/ge-sport-main-page-dark_k5smls.png",
+      "https://res.cloudinary.com/duybptmkx/image/upload/f_webp,f_webp/v1763400710/React_portfolio/Ge_Sport_Store/ge_sport_store_db_schema_gpubhi.png",
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_900,c_fill,g_north,f_webp/v1763397274/React_portfolio/Ge_Sport_Store/ge-sport-products-page.png_krqgas.png",
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_900,c_fill,g_north,f_webp/v1763397274/React_portfolio/Ge_Sport_Store/ge-sport-main-page-mobile_xpugqj.png",
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_900,c_fill,g_north,f_webp/v1763397274/React_portfolio/Ge_Sport_Store/ge-sport-products-page-mobile.png_gromp7.png",
+    ],
+    thumbnail:
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_319,h_199,c_fill,g_north,f_webp/v1763397274/React_portfolio/Ge_Sport_Store/ge-sport-main-page_b9re0s.png",
+    cardImage:
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_700,h_400,c_fill,g_north,f_webp/v1763397274/React_portfolio/Ge_Sport_Store/ge-sport-main-page_b9re0s.png",
+    coverImage:
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_1200,h_900,c_crop,g_north_west,f_webp/v1763397274/React_portfolio/Ge_Sport_Store/ge-sport-products-page.png_krqgas.png",
     liveDemo: "https://ge-sport-store.vercel.app",
   },
   {
+    id: "2",
     name: "Natours",
-    description: "Website is designed to easily discover and book tours",
-    technologies: ["Node", "Express", "pug"],
-    image: ImgNatours,
+    slug: "natours",
+    slogan: "Search and Discover Tours Worldwide with Ease",
+    description:
+      "A web-based tour booking platform that enables users to discover, and book tours effortlessly. The system features streamlined booking processes, and integrated secure payment processing. (Database live view: Some NoSQL values aren’t shown because they can’t be converted to SQL. For the full version, please check the source code.)",
+    technologies: ["Node", "Express", "pug", "stripe"],
+    gallery: [
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_900,c_fill,g_north,f_webp/v1763401529/React_portfolio/Natours/natours-main-page_scbpu4.png",
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_900,c_fill,g_north,f_webp/v1763401531/React_portfolio/Natours/natours-tour-details-page_s3bpcw.png",
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_900,c_fill,g_north,f_webp/v1763401558/React_portfolio/Natours/natours-account-settings-page_pvtxna.png",
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_900,c_fill,g_north,f_webp/v1763401529/React_portfolio/Natours/natours-checkout-page_raga3x.png",
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_900,c_fill,g_north,f_webp/v1763401530/React_portfolio/Natours/natours-payments-page_rpvl9y.png",
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_900,c_fill,g_north,f_webp/v1763401530/React_portfolio/Natours/natours-reviews-page_wxqflv.png",
+    ],
+    thumbnail:
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_319,h_199,c_fill,g_north,f_webp/v1763401531/React_portfolio/Natours/natours-tour-details-page_s3bpcw.png",
+    cardImage:
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_600,h_400,c_fill,g_north,f_webp/v1763401529/React_portfolio/Natours/natours-main-page_scbpu4.png",
+    coverImage:
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_1200,h_900,c_crop,g_north_west,f_webp/v1763401529/React_portfolio/Natours/natours-main-page_scbpu4.png",
+
     gitRepo: "https://github.com/bekauridev/natours_api",
     liveDemo: "https://natours-api-9og2.onrender.com/",
+    database: "https://drawsql.app/teams/none-1912/diagrams/natours",
   },
   {
+    id: "3",
     name: "Forkify",
+    slug: "forkify",
+    slogan: "Uncover amazing recipes and effortless cooking tips instantly",
     description:
-      "Website is designed to easily search for recipes and get all the essential details ",
+      "The website is designed to help you quickly discover recipes and explore detailed information about each one. You can search for any recipe, view full cooking instructions, and access an external link with step-by-step preparation guidance. You can also add your own recipes locally and save your personal favorites for easy access later.",
     technologies: ["HTML", "CSS", "JavaScript"],
-    image: ImgSmForkify,
+    gallery: [
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_900,c_fill,g_north,f_webp/v1763408113/React_portfolio/Forkify/forkify-main-page_rbubik.png",
+    ],
+    thumbnail:
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_319,h_199,c_fill,g_north,f_webp/v1763408113/React_portfolio/Forkify/forkify-main-page_rbubik.png",
+    cardImage:
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_800,h_400,c_fill,g_north,f_webp/v1763408113/React_portfolio/Forkify/forkify-main-page_rbubik.png",
+
+    coverImage:
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_1200,h_900,f_webp/v1763408248/React_portfolio/Forkify/forkify_wqcbi5.png",
     gitRepo: "https://github.com/bekauridev/forkify",
     liveDemo: "https://bekauri-forkify.netlify.app",
   },
   {
+    id: "4",
     name: "Bankist",
-    description: "Nice smooth and Responsive design about banking",
+    slug: "bankist",
+    slogan: "A banking landing page project created to highlight refined UI and UX",
+    description:
+      "Nice landing page for Bankist, your modern banking companion built to simplify everyday finance.",
     technologies: ["HTML", "CSS", "JavaScript"],
-    image: ImgSmBankist,
+    gallery: [
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_900,c_fill,g_north,f_webp/v1763411668/React_portfolio/Bankist/bankist_bhz6gk.png",
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_900,c_fill,g_north,f_webp/v1763411617/React_portfolio/Bankist/bankist-hero_kqp1p1.png",
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_900,c_fill,g_north,f_webp/v1763411616/React_portfolio/Bankist/bankist-features_zblarn.png",
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_900,c_fill,g_north,f_webp/v1763411618/React_portfolio/Bankist/bankist-operations_j7xjxy.png",
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_900,c_fill,g_north,f_webp/v1763411620/React_portfolio/Bankist/bankist-testimonials_cp0xrs.png",
+    ],
+    thumbnail:
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_319,h_199,c_fill,g_north,f_webp/v1763411617/React_portfolio/Bankist/bankist-hero_kqp1p1.png",
+    cardImage:
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_700,h_400,c_fill,g_north,f_webp/v1763411617/React_portfolio/Bankist/bankist-hero_kqp1p1.png",
+    coverImage:
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_1200,h_900,c_crop,f_webp/v1763411617/React_portfolio/Bankist/bankist-hero_kqp1p1.png",
+
     gitRepo: "https://github.com/bekauridev/bankist",
     liveDemo: "https://bekauri-bankist.netlify.app",
   },
   {
+    id: "5",
     name: "Bankist App",
+    slug: "bankist-app",
+    slogan: "Manage your money effortlessly with instant transfers, deposits, and loans",
     description:
-      "Website lets you make transactions, deposits, withdrawals, and get loans all online.",
+      "This website allows you to manage your finances online with ease. You can make transactions, deposit funds, withdraw money, and even request loans—all from one simple and secure platform.",
     technologies: ["HTML", "CSS", "JavaScript"],
-    image: ImgSmBankistApp,
+    gallery: [],
+    thumbnail:
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_319,h_199,c_fill,f_webp/v1763412622/React_portfolio/Bankist-app/bankist-app-3_kp5ssn.png",
+    cardImage:
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_700,h_400,c_fill,g_north,f_webp/v1763412622/React_portfolio/Bankist-app/bankist-app-3_kp5ssn.png",
+    coverImage:
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_1200,h_900,c_crop,g_north_west,f_webp/v1763412622/React_portfolio/Bankist-app/bankist-app-3_kp5ssn.png",
+
     gitRepo: "https://github.com/bekauridev/bankist-app",
     liveDemo: "https://bekauri-bankist-app.netlify.app/",
   },
   {
+    id: "6",
     name: "Mapty",
-    description: "Website that will help you to keep track of your workouts.",
+    slug: "mapty",
+    slogan: "Keep track of your workouts in a simple and visual way",
+    description:
+      "This website helps you keep track of your workouts in a simple and visual way. You can add running or cycling sessions by tapping directly on the map to mark the workout location. The app also shows the weather at the selected spot, and all your workouts automatically appear in the main view for quick access. A list on the left organizes every workout, allowing you to sort or delete entries. When a record is selected, the map smoothly zooms to the exact place where the workout was performed.",
     technologies: ["HTML", "CSS", "JavaScript"],
-    image: ImgSmMapty,
+    gallery: [
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_900,c_fill,g_north,f_webp/v1763413291/React_portfolio/Mapty/mapty-1_is4bx2.png",
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_900,c_fill,g_north,f_webp/v1763413293/React_portfolio/Mapty/mapty-2_aquenl.png",
+    ],
+    thumbnail:
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_319,h_199,c_fill,g_north,f_webp/v1763413291/React_portfolio/Mapty/mapty-1_is4bx2.png",
+    cardImage:
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_700,h_400,c_fill,g_north,f_webp/v1763413291/React_portfolio/Mapty/mapty-1_is4bx2.png",
+    coverImage:
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_1200,h_900,c_crop,g_north_west,f_webp/v1763413291/React_portfolio/Mapty/mapty-1_is4bx2.png",
     gitRepo: "https://github.com/bekauridev/mapthy",
     liveDemo: "https://bekauri-mapthy.netlify.app/",
   },
   {
+    id: "7",
     name: "Omnifood",
+    slug: "omnifood",
+    slogan: "A healthy meal delivered to your door, every single day",
     description: "Nice smooth and Responsive design about food delivery.",
     technologies: ["HTML", "CSS", "JavaScript"],
-    image: ImgSmOmnifood,
+    gallery: [
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_900,c_fill,g_north,f_webp/v1763414256/React_portfolio/Omnifood/omnifood_qtvyi2.png",
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_900,c_fill,g_north,f_webp/v1763551930/React_portfolio/Omnifood/omnifood-hero_ilu3r0.png",
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_900,c_fill,g_north,f_webp/v1763414057/React_portfolio/Omnifood/omnifood-testimonials_zeehn5.png",
+    ],
+    thumbnail:
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_319,h_199,c_fill,g_north,f_webp/v1763551930/React_portfolio/Omnifood/omnifood-hero_ilu3r0.png",
+
+    cardImage:
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_700,h_400,c_fill,g_north,f_webp/v1763551930/React_portfolio/Omnifood/omnifood-hero_ilu3r0.png",
+    coverImage:
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_1200,h_500,c_crop,f_webp/v1763551930/React_portfolio/Omnifood/omnifood-hero_ilu3r0.png",
     gitRepo: "https://github.com/bekauridev/Omnifood",
     liveDemo: "https://bekauri-omnifood.netlify.app",
   },
   {
-    name: "Weather Card",
-    description: "provides instant access to weather information from around the globe.",
+    id: "8",
+    name: "Weather Mini App",
+    slug: "weather-mini-app",
+    slogan: "Instant access to weather information from anywhere in the world",
+    description:
+      "This app provides instant access to weather information from anywhere in the world. Simply search for a location to view real-time conditions, including temperature, and wind in a fast and easy-to-use interface.",
     technologies: ["React", "CSS"],
-    image: ImgSmWeatherCard,
+    gallery: [
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_900,c_fill,g_north,f_webp/v1763552930/React_portfolio/weather_app/weather_app_xcehar.png",
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_900,c_fill,g_north,f_webp/v1763552930/React_portfolio/weather_app/weather_app-1_tt58hj.png",
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_900,c_fill,g_north,f_webp/v1763552930/React_portfolio/weather_app/weather_app-2_voyikf.png",
+    ],
+    thumbnail:
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_319,h_199,c_fill,g_north,f_webp/v1763552930/React_portfolio/weather_app/weather_app_xcehar.png",
+    cardImage:
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_400,h_400,c_fill,g_north,f_webp/v1763552930/React_portfolio/weather_app/weather_app_xcehar.png",
+    coverImage:
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_1200,h_900,c_crop,g_north_west,f_webp/v1763552930/React_portfolio/weather_app/weather_app_xcehar.png",
     gitRepo: "https://github.com/bekauridev/weather-card",
     liveDemo: "https://bekauridev.github.io/weather-card/", // Add the missing liveDemo if available
   },
   {
+    id: "9",
     name: "WorldWise",
-    description: "Website that will help you to keep track of your adventures.",
+    slug: "worldwise",
+    slogan: "WorldWise helps you capture and remember every place you’ve visited",
+    description:
+      "WorldWise helps you capture and remember every place you’ve visited. Mark cities on a global map, track your journeys, and keep a visual record of your adventures. Never forget your experiences—and easily share your world travels with friends.",
     technologies: ["React", "CSS"],
-    image: ImgSmWorldWise,
+    gallery: [
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_900,c_fill,g_north,f_webp/v1763554690/React_portfolio/WorldWise/WorldWise-hero_ojeilj.png",
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_900,c_fill,g_north,f_webp/v1763554688/React_portfolio/WorldWise/WorldWise-app_vkaybr.png",
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_900,c_fill,g_north,f_webp/v1763554689/React_portfolio/WorldWise/WorldWise-app-2_md4xrc.png",
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_900,c_fill,g_north,f_webp/v1763554690/React_portfolio/WorldWise/WorldWise-app-4_gyjjoi.png",
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_900,c_fill,g_north,f_webp/v1763554689/React_portfolio/WorldWise/WorldWise-app-3_jcqpik.png",
+    ],
+    thumbnail:
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_319,h_199,c_fill,g_north,f_webp/v1763554690/React_portfolio/WorldWise/WorldWise-hero_ojeilj.png",
+    cardImage:
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_700,h_400,c_fill,g_north,f_webp/v1763554690/React_portfolio/WorldWise/WorldWise-hero_ojeilj.png",
+    coverImage:
+      "https://res.cloudinary.com/duybptmkx/image/upload/w_1200,h_900,c_crop,g_north,f_webp/v1763554690/React_portfolio/WorldWise/WorldWise-hero_ojeilj.png",
     gitRepo: "https://github.com/bekauridev/WorldWise",
     liveDemo: "https://bekauri-worldwise.netlify.app",
   },
