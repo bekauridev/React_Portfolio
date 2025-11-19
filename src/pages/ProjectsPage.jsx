@@ -1,9 +1,13 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+
+// Third-party libraries
 import Fuse from "fuse.js";
 
+// Internal project files – features
 import { projects } from "../features/projects/api";
 import ProjectCard from "../features/projects/ProjectCard";
 
+// UI components
 import Breadcrumbs from "../ui/Breadcrumbs";
 import Pagination from "../ui/pagination";
 function ProjectsPage() {
@@ -19,6 +23,10 @@ function ProjectsPage() {
       }),
     []
   );
+
+  useEffect(function () {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   const filteredProjects = query ? fuse.search(query).map((r) => r.item) : projects;
 

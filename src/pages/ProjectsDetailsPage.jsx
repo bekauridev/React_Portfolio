@@ -1,10 +1,17 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+
+// Third-party libraries
 import { motion } from "framer-motion";
-import ProjectGallery from "../features/projects/ProjectGallery";
+import { HiOutlineArrowSmLeft } from "react-icons/hi";
+
+// Internal project files – features
 import ProjectHero from "../features/projects/ProjectHero";
+import ProjectGallery from "../features/projects/ProjectGallery";
 import ProjectSidebar from "../features/projects/ProjectSidebar";
 import { projects } from "../features/projects/api";
+
+// UI components
 import Breadcrumbs from "../ui/Breadcrumbs";
 import Button from "../ui/Button";
 
@@ -54,9 +61,10 @@ function ProjectDetails() {
         <Button
           type="none"
           callBack={() => navigate(-1)}
-          className="text-[14px] font-semibold tracking-wide text-gray-50 transition-colors duration-200 hover:text-primary-300"
+          className="flex items-center gap-1 text-[14px] font-semibold tracking-wide text-gray-50 transition-colors duration-200 hover:text-primary-300"
         >
-          ← Go Back
+          <HiOutlineArrowSmLeft className="text-lg" />
+          <span>Go Back</span>
         </Button>
       </div>
 
