@@ -8,6 +8,7 @@ const HomePage = lazy(() => import("./pages/HomePage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Projects = lazy(() => import("./pages/ProjectsPage"));
 const ProjectDetails = lazy(() => import("./pages/ProjectsDetailsPage"));
+const GoodiesPage = lazy(() => import("./pages/GoodiesPage"));
 
 function App() {
   return (
@@ -57,6 +58,7 @@ function LoaderWrapper() {
             <Route index element={<HomePage />} />
             <Route path="projects" element={<Projects />} />
             <Route path="projects/:slug" element={<ProjectDetails />} />
+            <Route path="goodies" element={<GoodiesPage />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

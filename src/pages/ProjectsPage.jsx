@@ -10,6 +10,7 @@ import ProjectCard from "../features/projects/ProjectCard";
 // UI components
 import Breadcrumbs from "../ui/Breadcrumbs";
 import Pagination from "../ui/pagination";
+import SearchBar from "../ui/SearchBar";
 function ProjectsPage() {
   const [query, setQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -40,7 +41,7 @@ function ProjectsPage() {
   };
 
   return (
-    <section className="mx-auto w-full max-w-7xl px-4 py-10">
+    <section className="mx-auto w-full max-w-6xl px-4 py-10">
       <div className="mb-6">
         <Breadcrumbs />
       </div>
@@ -49,17 +50,16 @@ function ProjectsPage() {
         <h1 className="text-4xl font-semibold tracking-tight text-gray-100">
           My Projects
         </h1>
-        <input
-          type="search"
-          placeholder="Search projects..."
-          value={query}
-          onChange={(e) => {
-            setQuery(e.target.value);
-            setCurrentPage(1);
-          }}
-          className="w-full max-w-xs rounded-lg border border-gray-700 bg-gray-800/60 px-4 py-2 text-gray-100 placeholder-gray-400 shadow-sm transition focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-400/40"
-          aria-label="Search projects"
-        />
+        <div className="w-full max-w-md">
+          <SearchBar
+            value={query}
+            onChange={(value) => {
+              setQuery(value);
+              setCurrentPage(1);
+            }}
+            placeholder="Search projects..."
+          />
+        </div>
       </div>
 
       <div className="grid min-h-[55vh] grid-cols-1 items-start gap-8 md:grid-cols-2 lg:grid-cols-3">
