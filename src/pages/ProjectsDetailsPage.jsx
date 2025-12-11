@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 // Third-party libraries
 import { motion } from "framer-motion";
@@ -9,7 +10,8 @@ import { HiOutlineArrowSmLeft } from "react-icons/hi";
 import ProjectHero from "../features/projects/ProjectHero";
 import ProjectGallery from "../features/projects/ProjectGallery";
 import ProjectSidebar from "../features/projects/ProjectSidebar";
-import { projects } from "../features/projects/api";
+import useProjectsQuery from "../features/projects/useProjectsQuery";
+import { selectProjectBySlug, selectProjects } from "../features/projects/projectsSlice";
 
 // UI components
 import Breadcrumbs from "../ui/Breadcrumbs";
@@ -18,16 +20,32 @@ import Button from "../ui/Button";
 function ProjectDetails() {
   const { slug } = useParams();
   const navigate = useNavigate();
-  const [project, setProject] = useState(null);
+  const projectsFromStore = useSelector(selectProjects);
+  const storedProject = useSelector((state) => selectProjectBySlug(state, slug));
+  const { data: projects = [], isPending, isError, error } = useProjectsQuery();
 
-  useEffect(() => {
-    const found = projects.find((p) => String(p.slug) === String(slug));
-    setProject(found);
-  }, [slug]);
+  const projectList = projectsFromStore.length ? projectsFromStore : projects;
+  const project = storedProject ?? projectList.find((p) => String(p.slug) === String(slug));
 
   useEffect(function () {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
+
+  if (isPending && !project) {
+    return (
+      <div className="flex h-screen items-center justify-center text-gray-300">
+        Loading project...
+      </div>
+    );
+  }
+
+  if (isError && !project) {
+    return (
+      <div className="flex h-screen items-center justify-center text-gray-400">
+        {error?.message || "Failed to load project details."}
+      </div>
+    );
+  }
 
   if (!project) {
     return (

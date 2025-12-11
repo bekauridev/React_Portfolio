@@ -3,36 +3,48 @@ import { MdOutlineWork } from "react-icons/md";
 import DivideLine from "../../ui/DivideLine";
 import InfiniteCarousel from "../../ui/InfiniteCarousel";
 import Button from "../../ui/Button";
-import { projects } from "./api";
-
+import thumbnailFallback from "../../assets/images/project-images/placeholder.png";
 // React Icons
 import { FaArrowRightLong } from "react-icons/fa6";
 import { RxLink2, RxLinkBreak2 } from "react-icons/rx";
 import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
+import useProjectsQuery from "./useProjectsQuery";
+import { selectProjects } from "./projectsSlice";
 
 function ProjectsPreview() {
   const navigate = useNavigate();
-  const carouselImages = projects.map((project) => project.thumbnail);
+  const projectsFromStore = useSelector(selectProjects);
+  const { isPending, isError, error, data: projects = [] } = useProjectsQuery();
+
+  const projectList = projectsFromStore.length ? projectsFromStore : projects;
+  const hasProjects = projectList.length > 0;
+  const showCarousel = isPending || hasProjects;
+
+  const carouselImages = isPending
+    ? Array(3).fill(thumbnailFallback)
+    : projectList.map((project) => project.thumbnail);
+
   const handleClick = () => {
     navigate("/projects");
   };
 
   return (
     <div
-      className="group relative mx-2 my-6 max-w-lg cursor-pointer rounded-xl border border-slate-700/30 bg-primary-900/10 px-4 py-6 shadow-lg sm:px-6"
+      className="relative max-w-lg px-4 py-6 mx-2 my-6 border shadow-lg cursor-pointer group rounded-xl border-slate-700/30 bg-primary-900/10 sm:px-6"
       onClick={handleClick}
     >
-      <div className="relative mb-1 flex items-center gap-2">
+      <div className="relative flex items-center gap-2 mb-1">
         <MdOutlineWork className="text-text" size={25} />
         <h1 className="text-xl font-bold text-gray-200 sm:text-2xl">Projects</h1>
 
         <RxLink2
           size={24}
-          className="absolute -right-3 bottom-5 -rotate-90 text-primary-300 transition-all duration-300 group-hover:opacity-0"
+          className="absolute transition-all duration-300 -rotate-90 -right-3 bottom-5 text-primary-300 group-hover:opacity-0"
         />
         <RxLinkBreak2
           size={24}
-          className="absolute -right-3 bottom-5 -rotate-90 text-primary-300 opacity-0 transition-all duration-300 group-hover:opacity-100"
+          className="absolute transition-all duration-300 -rotate-90 opacity-0 -right-3 bottom-5 text-primary-300 group-hover:opacity-100"
         />
       </div>
 
@@ -44,7 +56,14 @@ function ProjectsPreview() {
 
       {/* Projects carousel */}
       <div className="mt-4">
-        <InfiniteCarousel speed={0.7} direction={"left"} images={carouselImages} />
+        {showCarousel && (
+          <InfiniteCarousel speed={0.7} direction={"left"} images={carouselImages} />
+        )}
+        {isError && !hasProjects && (
+          <p className="mt-3 text-sm text-amber-200/80">
+            {error?.message || "Unable to load projects right now."}
+          </p>
+        )}
       </div>
 
       {/* Hover button */}

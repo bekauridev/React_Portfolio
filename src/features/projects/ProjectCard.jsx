@@ -4,9 +4,11 @@ import { FaGlobe } from "react-icons/fa6";
 import { GoInfo } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import { cn } from "../../utils/helpers";
-function ProjectCard({ cardImage, name, slug, slogan, technologies, liveDemo }) {
+import thumbnailFallback from "../../assets/images/project-images/placeholder.png";
+function ProjectCard({ cardImage, name, slug, slogan, technologies = [], liveDemo }) {
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false); // shared hover state
+  const imageSrc = cardImage || thumbnailFallback;
 
   const handleGoToDetails = () => {
     navigate(`/projects/${slug}`);
@@ -17,20 +19,20 @@ function ProjectCard({ cardImage, name, slug, slogan, technologies, liveDemo }) 
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.1 }}
-      className="relative flex flex-col overflow-hidden rounded-xl border border-slate-700/30 bg-primary-900/10 shadow-lg backdrop-blur-xl transition-all duration-300"
+      className="relative flex flex-col overflow-hidden transition-all duration-300 border shadow-lg rounded-xl border-slate-700/30 bg-primary-900/10 backdrop-blur-xl"
       style={{ backdropFilter: "blur(1px)" }}
     >
       {/* IMAGE */}
       <div
-        className="relative h-52 w-full cursor-pointer overflow-hidden"
+        className="relative w-full overflow-hidden cursor-pointer h-52"
         onClick={handleGoToDetails}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
         <img
-          src={cardImage}
+          src={imageSrc}
           alt={`${name} cover`}
-          className="h-full w-full object-cover transition-transform duration-500"
+          className="object-cover w-full h-full transition-transform duration-500"
           style={{ transform: isHovered ? "scale(1.02)" : "scale(1)" }}
         />
         {/* Overlay effect for image */}
@@ -54,7 +56,7 @@ function ProjectCard({ cardImage, name, slug, slogan, technologies, liveDemo }) 
       </div>
 
       {/* CONTENT */}
-      <div className="flex flex-1 flex-col p-6">
+      <div className="flex flex-col flex-1 p-6">
         <h2 className="text-xl font-semibold transition">
           <span
             onClick={handleGoToDetails}
@@ -69,7 +71,7 @@ function ProjectCard({ cardImage, name, slug, slogan, technologies, liveDemo }) 
         </h2>
 
         {/* Technologies */}
-        <div className="mt-2 flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 mt-2">
           {technologies.slice(0, 3).map((tech, idx) => (
             <span
               key={idx}
@@ -81,14 +83,14 @@ function ProjectCard({ cardImage, name, slug, slogan, technologies, liveDemo }) 
         </div>
 
         {/* slogan */}
-        <p className="mb-1 mt-3 line-clamp-3 text-sm text-gray-300">{slogan}</p>
+        <p className="mt-3 mb-1 text-sm text-gray-300 line-clamp-3">{slogan}</p>
       </div>
 
       {/* Bottom actions */}
-      <div className="flex items-center justify-between gap-3 border-t border-slate-700/30 px-5 py-3">
+      <div className="flex items-center justify-between gap-3 px-5 py-3 border-t border-slate-700/30">
         <button
           onClick={handleGoToDetails}
-          className="rounded-lg bg-indigo-600/70 px-4 py-2 text-sm font-medium text-white transition hover:bg-indigo-500"
+          className="px-4 py-2 text-sm font-medium text-white transition rounded-lg bg-indigo-600/70 hover:bg-indigo-500"
         >
           View More
         </button>
