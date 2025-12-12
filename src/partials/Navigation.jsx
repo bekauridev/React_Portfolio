@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { IoClose } from "react-icons/io5";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { FaNewspaper } from "react-icons/fa";
-import { MdMail, MdOutlineWork } from "react-icons/md";
+import { MdArticle, MdMail, MdOutlineWork } from "react-icons/md";
 
 import logoX1 from "../assets/images/logos/logo@x1.webp";
 import logoX2 from "../assets/images/logos/logo@x2.webp";
@@ -15,6 +15,7 @@ import Button from "../ui/Button";
 import useMeasure from "react-use-measure";
 import { useDragControls, useMotionValue, useAnimate, motion } from "framer-motion";
 import { useNavigate } from "react-router";
+import { FaGift } from "react-icons/fa6";
 
 function Navigation({ onOpenModal }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -54,12 +55,12 @@ function Navigation({ onOpenModal }) {
   }, [isMenuOpen]);
   return (
     <>
-      <nav className="sticky top-0 z-20 m-auto overflow-hidden max-w-auto md:static">
+      <nav className="max-w-auto sticky top-0 z-20 m-auto overflow-hidden md:static">
         <div
-          className="px-6 mx-2 mt-4 mb-5 border shadow-md rounded-xl border-slate-700/30 bg-primary-900 backdrop-blur-sm md:px-4"
+          className="mx-2 mb-5 mt-4 rounded-xl border border-slate-700/30 bg-primary-900 px-6 shadow-md backdrop-blur-sm md:px-4"
           style={{ backdropFilter: "blur(1px)" }}
         >
-          <div className="flex items-center justify-between h-16">
+          <div className="flex h-16 items-center justify-between">
             <Button
               callBack={() => {
                 setTimeout(() => navigate("/"), 400);
@@ -98,8 +99,8 @@ function Navigation({ onOpenModal }) {
               <Button to="/projects" targetBlank={false} type="plain">
                 Projects
               </Button>
-              <Button type="plain" callBack={() => onOpenModal("blog")}>
-                Blog
+              <Button to="/blog" targetBlank={false} type="plain">
+                Blogs
               </Button>
               <Button to="/goodies" type="plain" targetBlank={false}>
                 goodies
@@ -158,13 +159,13 @@ function Navigation({ onOpenModal }) {
           className="fixed inset-0 z-30 bg-primary-800/50"
           onClick={handleOverlayClick}
         >
-          <div className="fixed inset-0 flex items-end justify-center pointer-events-none">
+          <div className="pointer-events-none fixed inset-0 flex items-end justify-center">
             <motion.div
               id="drawer"
               ref={drawerRef}
               initial={{ y: "100%" }}
               animate={{ y: "0%" }}
-              className="w-full max-w-lg pointer-events-auto bg-primary-900/80"
+              className="pointer-events-auto w-full max-w-lg bg-primary-900/80"
               style={{ y }}
               drag="y"
               dragControls={controls}
@@ -183,19 +184,20 @@ function Navigation({ onOpenModal }) {
                 damping: 40,
               }}
             >
-              <div className="z-10 flex justify-center py-3 border-b rounded-t-3xl border-primary-400/20 bg-primary-700/50 backdrop-blur-sm">
+              <div className="z-10 flex justify-center rounded-t-3xl border-b border-primary-400/20 bg-primary-700/50 py-3 backdrop-blur-sm">
                 <button
                   onPointerDown={(e) => controls.start(e)}
-                  className="w-12 h-1 rounded-full cursor-grab touch-none bg-neutral-100 active:cursor-grabbing"
+                  className="h-1 w-12 cursor-grab touch-none rounded-full bg-neutral-100 active:cursor-grabbing"
                 ></button>
               </div>
               <div className="relative z-0 h-full overflow-y-hidden">
-                <div className="flex flex-col items-center py-4 pt-2 border-gray-800 bg-primary-700/50 backdrop-blur-sm">
+                <div className="flex flex-col items-center border-gray-800 bg-primary-700/50 py-4 pt-2 backdrop-blur-sm">
                   <Button
                     to="/projects"
-                    targetBlank={false}
-                    className="text-lg"
                     type="plain"
+                    targetBlank={false}
+                    callBack={() => setIsMenuOpen(false)}
+                    className="text-lg"
                   >
                     <MdOutlineWork size={20} />
                     Projects
@@ -205,30 +207,27 @@ function Navigation({ onOpenModal }) {
                     to="/goodies"
                     type="plain"
                     targetBlank={false}
+                    callBack={() => setIsMenuOpen(false)}
                     className="text-lg"
                   >
-                    <FaNewspaper size={20} />
+                    <FaGift size={20} />
                     Goodies
                   </Button>
 
                   <Button
+                    to="/blog"
                     type="plain"
+                    targetBlank={false}
+                    callBack={() => setIsMenuOpen(false)}
                     className="text-lg"
-                    callBack={() => {
-                      onOpenModal("blog");
-                      setIsMenuOpen(false);
-                    }}
                   >
-                    <FaNewspaper />
-                    Blog
+                    <MdArticle size={20} />
+                    Blogs
                   </Button>
                   <Button
                     className="text-lg"
                     type="plain"
-                    callBack={() => {
-                      onOpenModal("contact");
-                      setIsMenuOpen(false);
-                    }}
+                    callBack={() => onOpenModal("contact")}
                   >
                     <MdMail size={20} />
                     Contact

@@ -3,39 +3,46 @@ import { Link, useLocation } from "react-router-dom";
 function Breadcrumbs() {
   const location = useLocation();
 
-  // Split the current path to create breadcrumb items
-  const pathnames = location.pathname.split("/").filter((x) => x);
-  // Dynamically generate breadcrumb names based on the route
-  const breadcrumbItems = pathnames.map((item, index) => {
-    // You can map routes to their human-friendly names
-    const routeNames = {
-      projects: "Projects",
-      home: "Home",
-      // Add more route mappings as needed
-    };
+  const pathnames = location.pathname.split("/").filter(Boolean);
 
-    // If the route doesn't match routeNames, capitalize the first letter and remove the first character
-    const routeName = routeNames[item] || item.charAt(0).toUpperCase() + item.slice(1);
+  const routeNames = {
+    projects: "Projects",
+    blog: "Blog",
+    home: "Home",
+  };
+
+  const breadcrumbItems = pathnames.map((item, index) => {
+    const routeName = routeNames[item] || item; // keep slug as-is (or prettify if you want)
 
     return {
       name: routeName,
       link: "/" + pathnames.slice(0, index + 1).join("/"),
+      isLast: index === pathnames.length - 1,
     };
   });
 
   return (
     <nav className="mb-6">
-      <ol className="flex items-center space-x-2 text-sm font-semibold text-primary-300">
+      <ol className="flex items-center space-x-0.5 text-sm font-semibold text-primary-300">
         <li>
           <Link to="/" className="hover:text-primary-100">
             Home
           </Link>
         </li>
-        {breadcrumbItems.map((item, index) => (
-          <li key={index} className="flex items-center">
-            <span> / </span>
 
-            <Link to={item.link} className="ml-2 hover:text-primary-100">
+        {breadcrumbItems.map((item, index) => (
+          <li key={index} className="flex min-w-0 items-center">
+            <span className="mx-2">/</span>
+
+            <Link
+              to={item.link}
+              className={[
+                "hover:text-primary-100",
+                // only truncate on mobile AND only for the last crumb
+                item.isLast ? "truncate max-w-[120px] md:max-w-none" : "",
+              ].join(" ")}
+              title={item.isLast ? item.name : undefined} // shows full on long-press/hover
+            >
               {item.name}
             </Link>
           </li>

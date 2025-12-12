@@ -44,12 +44,17 @@ function Button({
     none: {},
   };
 
+  const handleClick = (event) => {
+    if (callBack) callBack(event);
+  };
+
   // Link version
   if (to)
     return (
       <Link
         to={to}
         target={targetBlank ? "_blank" : "_top"}
+        onClick={handleClick}
         className={twMerge(styles[type], className)}
       >
         {children}
@@ -61,7 +66,7 @@ function Button({
     <button
       disabled={disabled}
       className={twMerge(styles[type], className)}
-      onClick={callBack}
+      onClick={handleClick}
     >
       {children}
     </button>

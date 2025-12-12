@@ -31,14 +31,6 @@ function AppLayout() {
             "https://mail.google.com/mail/?view=cm&fs=1&to=beqauri.forwork@gmail.com",
         });
         break;
-      case "blog":
-        setModalContent({
-          title: "check out my blog",
-          body: "Discover the blogs I've been creating and sharing on daily.dev",
-          actionBtnContent: "View Blogs",
-          redirectLink: "https://app.daily.dev/squads/bekauriblog",
-        });
-        break;
       default:
         setModalContent({});
     }

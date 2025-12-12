@@ -17,6 +17,8 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const Projects = lazy(() => import("./pages/ProjectsPage"));
 const ProjectDetails = lazy(() => import("./pages/ProjectsDetailsPage"));
 const GoodiesPage = lazy(() => import("./pages/GoodiesPage"));
+const BlogsPage = lazy(() => import("./pages/BlogsPage"));
+const BlogDetailsPage = lazy(() => import("./pages/BlogDetailsPage"));
 const queryClient = new QueryClient();
 
 function App() {
@@ -116,6 +118,8 @@ function LoaderWrapper() {
             <Route path="projects" element={<Projects />} />
             <Route path="projects/:slug" element={<ProjectDetails />} />
             <Route path="goodies" element={<GoodiesPage />} />
+            <Route path="blog" element={<BlogsPage />} />
+            <Route path="blog/:slug" element={<BlogDetailsPage />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

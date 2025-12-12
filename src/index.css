@@ -68,6 +68,80 @@
   stroke-dashoffset: -32.42;
 }
 
+.blog-content {
+  color: #e5e7eb;
+}
+
+.blog-content h1,
+.blog-content h2,
+.blog-content h3 {
+  color: #fff;
+  margin-top: 1.2rem;
+  margin-bottom: 0.6rem;
+  font-weight: 700;
+}
+
+.blog-content h1 {
+  font-size: 2.1rem;
+}
+
+.blog-content h2 {
+  font-size: 1.6rem;
+}
+
+.blog-content h3 {
+  font-size: 1.25rem;
+}
+
+.blog-content p {
+  margin: 0.75rem 0;
+  line-height: 1.7;
+  color: #e5e7eb;
+}
+
+.blog-content ul {
+  margin: 0.75rem 0 0.75rem 1.5rem;
+  list-style: disc;
+  color: #e5e7eb;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.blog-content li {
+  line-height: 1.6;
+}
+
+.blog-content code {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.15rem 0.35rem;
+  border-radius: 0.35rem;
+  font-size: 0.95rem;
+  color: #c7d2fe;
+}
+
+.blog-content pre {
+  background: linear-gradient(135deg, rgba(120, 113, 247, 0.18), rgba(59, 130, 246, 0.14));
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  padding: 1rem;
+  border-radius: 0.75rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+}
+
+.blog-content pre code {
+  background: transparent;
+  padding: 0;
+  color: #e0e7ff;
+  display: block;
+}
+
+.blog-content blockquote {
+  border-left: 4px solid rgba(119, 122, 241, 0.6);
+  padding-left: 0.9rem;
+  margin: 1rem 0;
+  color: #c7d2fe;
+}
+
 /* inter-100 - latin */
 @font-face {
   font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
