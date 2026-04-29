@@ -28,17 +28,22 @@ export function isProjectRepoUrl(value) {
   }
 }
 
-function withOptionalFields(payload, values, fields) {
+function withOptionalFields(payload, values, fields, { includeCleared = false } = {}) {
   fields.forEach((field) => {
     const value = values[field];
     if (Array.isArray(value)) {
       const cleanValue = cleanArray(value);
-      if (cleanValue.length) payload[field] = cleanValue;
+      if (cleanValue.length || includeCleared) payload[field] = cleanValue;
       return;
     }
 
     const cleanValue = String(value || "").trim();
-    if (cleanValue) payload[field] = cleanValue;
+    if (cleanValue) {
+      payload[field] = cleanValue;
+      return;
+    }
+
+    if (includeCleared) payload[field] = null;
   });
 
   return payload;
@@ -92,7 +97,7 @@ export function validateProject(values) {
   return errors;
 }
 
-export function normalizeProject(values) {
+export function normalizeProject(values, { includeClearedOptional = false } = {}) {
   const payload = {
     title: values.title.trim(),
     description: values.description.trim(),
@@ -108,7 +113,7 @@ export function normalizeProject(values) {
     "liveDemo",
     "gitRepo",
     "database",
-  ]);
+  ], { includeCleared: includeClearedOptional });
 }
 
 export function validateBlog(values) {
@@ -130,14 +135,19 @@ export function validateBlog(values) {
   return errors;
 }
 
-export function normalizeBlog(values) {
+export function normalizeBlog(values, { includeClearedOptional = false } = {}) {
   const payload = {
     title: values.title.trim(),
     content: values.content.trim(),
     author: values.author.trim(),
   };
 
-  withOptionalFields(payload, values, ["excerpt", "coverImage", "gallery", "tags", "category"]);
+  withOptionalFields(
+    payload,
+    values,
+    ["excerpt", "coverImage", "gallery", "tags", "category"],
+    { includeCleared: includeClearedOptional }
+  );
 
   if (values.status) payload.status = values.status;
   payload.isFeatured = Boolean(values.isFeatured);

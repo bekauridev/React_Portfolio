@@ -3,7 +3,7 @@ import { cn } from "../../utils/helpers";
 
 export function PageHeader({ eyebrow, title, description, action }) {
   return (
-    <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+    <div className="flex flex-col gap-4 mb-6 md:flex-row md:items-end md:justify-between">
       <div>
         {eyebrow && (
           <p className="mb-2 text-xs font-semibold uppercase tracking-[0.25em] text-primary-200/80">
@@ -13,7 +13,7 @@ export function PageHeader({ eyebrow, title, description, action }) {
         <h1 className="text-3xl font-semibold tracking-tight text-gray-50 md:text-4xl">
           {title}
         </h1>
-        {description && <p className="mt-2 max-w-2xl text-sm text-gray-400">{description}</p>}
+        {description && <p className="max-w-2xl mt-2 text-sm text-gray-400">{description}</p>}
       </div>
       {action}
     </div>
@@ -124,12 +124,12 @@ export function SelectInput({ children, className, ...props }) {
 
 export function CheckboxField({ label, checked, onChange }) {
   return (
-    <label className="flex items-center gap-3 rounded-2xl border border-slate-700/50 bg-primary-900/40 px-4 py-3 text-sm font-semibold text-gray-200">
+    <label className="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-gray-200 border rounded-2xl border-slate-700/50 bg-primary-900/40">
       <input
         type="checkbox"
         checked={checked}
         onChange={(event) => onChange(event.target.checked)}
-        className="h-4 w-4 accent-primary-400"
+        className="w-4 h-4 accent-primary-400"
       />
       {label}
     </label>
@@ -184,11 +184,11 @@ export function StatusMessage({ type = "info", children }) {
 
 export function ConfirmDialog({ title, message, confirmLabel = "Delete", onConfirm, onCancel, busy }) {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-primary-900/80 px-4 backdrop-blur-sm">
-      <div className="w-full max-w-md rounded-3xl border border-slate-700/50 bg-primary-900 p-6 shadow-2xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center px-4 bg-primary-900/80 backdrop-blur-sm">
+      <div className="w-full max-w-md p-6 border shadow-2xl rounded-3xl border-slate-700/50 bg-primary-900">
         <h2 className="text-xl font-semibold text-gray-50">{title}</h2>
         <p className="mt-3 text-sm leading-6 text-gray-400">{message}</p>
-        <div className="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+        <div className="flex flex-col-reverse gap-3 mt-6 sm:flex-row sm:justify-end">
           <AdminButton variant="secondary" onClick={onCancel} disabled={busy}>
             Cancel
           </AdminButton>

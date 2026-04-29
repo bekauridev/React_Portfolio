@@ -79,7 +79,7 @@ function ProjectForm() {
     const nextErrors = validateProject(values);
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length) return;
-    mutation.mutate(normalizeProject(values));
+    mutation.mutate(normalizeProject(values, { includeClearedOptional: isEdit }));
   };
 
   if (isEdit && loadingProject) return <StatusMessage>Loading project...</StatusMessage>;

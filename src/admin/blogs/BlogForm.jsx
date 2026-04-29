@@ -77,7 +77,7 @@ function BlogForm() {
     const nextErrors = validateBlog(values);
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length) return;
-    mutation.mutate(normalizeBlog(values));
+    mutation.mutate(normalizeBlog(values, { includeClearedOptional: isEdit }));
   };
 
   if (isEdit && loadingBlog) return <StatusMessage>Loading blog...</StatusMessage>;
