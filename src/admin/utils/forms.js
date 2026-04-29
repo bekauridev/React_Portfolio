@@ -18,14 +18,30 @@ export function isHttpsUrl(value) {
   }
 }
 
-export function isProtocolUrl(value) {
+export function isProjectRepoUrl(value) {
   if (!value) return true;
   try {
     const url = new URL(value);
-    return Boolean(url.protocol && url.hostname);
+    return url.protocol === "https:" || url.protocol === "git:";
   } catch {
     return false;
   }
+}
+
+function withOptionalFields(payload, values, fields) {
+  fields.forEach((field) => {
+    const value = values[field];
+    if (Array.isArray(value)) {
+      const cleanValue = cleanArray(value);
+      if (cleanValue.length) payload[field] = cleanValue;
+      return;
+    }
+
+    const cleanValue = String(value || "").trim();
+    if (cleanValue) payload[field] = cleanValue;
+  });
+
+  return payload;
 }
 
 export function createQuery(params = {}) {
@@ -61,11 +77,13 @@ export function validateProject(values) {
   if (!hasItems(values.technologies)) errors.technologies = "Add at least one technology.";
 
   ["thumbnail", "cardImage", "coverImage", "liveDemo", "database"].forEach((field) => {
-    if (!isHttpsUrl(values[field])) errors[field] = "Use a valid HTTPS URL.";
+    if (values[field].trim() && !isHttpsUrl(values[field])) {
+      errors[field] = "Use a valid HTTPS URL.";
+    }
   });
 
-  if (!isProtocolUrl(values.gitRepo)) {
-    errors.gitRepo = "Use a valid URL with protocol, for example https:// or git://.";
+  if (values.gitRepo.trim() && !isProjectRepoUrl(values.gitRepo)) {
+    errors.gitRepo = "Use a valid URL with https:// or git://.";
   }
 
   const invalidGallery = cleanArray(values.gallery).some((item) => !isHttpsUrl(item));
@@ -75,19 +93,22 @@ export function validateProject(values) {
 }
 
 export function normalizeProject(values) {
-  return {
+  const payload = {
     title: values.title.trim(),
-    slogan: values.slogan.trim(),
     description: values.description.trim(),
     technologies: cleanArray(values.technologies),
-    gallery: cleanArray(values.gallery),
-    thumbnail: values.thumbnail.trim(),
-    cardImage: values.cardImage.trim(),
-    coverImage: values.coverImage.trim(),
-    liveDemo: values.liveDemo.trim(),
-    gitRepo: values.gitRepo.trim(),
-    database: values.database.trim(),
   };
+
+  return withOptionalFields(payload, values, [
+    "slogan",
+    "gallery",
+    "thumbnail",
+    "cardImage",
+    "coverImage",
+    "liveDemo",
+    "gitRepo",
+    "database",
+  ]);
 }
 
 export function validateBlog(values) {
@@ -96,8 +117,12 @@ export function validateBlog(values) {
   if (!values.content.trim()) errors.content = "Content is required.";
   if (!values.author.trim()) errors.author = "Author is required.";
   if (values.excerpt.length > 300) errors.excerpt = "Excerpt must be 300 characters or less.";
-  if (!BLOG_STATUSES.includes(values.status)) errors.status = "Choose a valid status.";
-  if (!isHttpsUrl(values.coverImage)) errors.coverImage = "Use a valid HTTPS URL.";
+  if (values.status && !BLOG_STATUSES.includes(values.status)) {
+    errors.status = "Choose a valid status.";
+  }
+  if (values.coverImage.trim() && !isHttpsUrl(values.coverImage)) {
+    errors.coverImage = "Use a valid HTTPS URL.";
+  }
 
   const invalidGallery = cleanArray(values.gallery).some((item) => !isHttpsUrl(item));
   if (invalidGallery) errors.gallery = "Gallery URLs must use HTTPS.";
@@ -106,25 +131,27 @@ export function validateBlog(values) {
 }
 
 export function normalizeBlog(values) {
-  return {
+  const payload = {
     title: values.title.trim(),
-    excerpt: values.excerpt.trim().slice(0, 300),
     content: values.content.trim(),
-    coverImage: values.coverImage.trim(),
-    gallery: cleanArray(values.gallery),
-    tags: cleanArray(values.tags),
-    category: values.category.trim() || "General",
     author: values.author.trim(),
-    status: values.status,
-    isFeatured: Boolean(values.isFeatured),
   };
+
+  withOptionalFields(payload, values, ["excerpt", "coverImage", "gallery", "tags", "category"]);
+
+  if (values.status) payload.status = values.status;
+  payload.isFeatured = Boolean(values.isFeatured);
+
+  if (payload.excerpt) payload.excerpt = payload.excerpt.slice(0, 300);
+
+  return payload;
 }
 
 export function validateGoodie(values) {
   const errors = {};
   if (!values.name.trim()) errors.name = "Name is required.";
   if (!values.description.trim()) errors.description = "Description is required.";
-  if (!values.logo.trim()) errors.logo = "Logo URL is required.";
+  if (!values.logo.trim()) errors.logo = "Logo is required.";
   if (!values.url.trim()) errors.url = "URL is required.";
   if (!values.category.trim()) errors.category = "Category is required.";
   if (values.logo && !isHttpsUrl(values.logo)) errors.logo = "Logo must be an HTTPS URL.";

@@ -95,10 +95,10 @@ function BlogForm() {
         <form onSubmit={handleSubmit} className="space-y-5">
           {serverError && <StatusMessage type="error">{serverError}</StatusMessage>}
           <div className="grid gap-5 md:grid-cols-2">
-            <Field label="Title" error={errors.title}>
+            <Field label="Title *" error={errors.title}>
               <TextInput value={values.title} onChange={(event) => update("title", event.target.value)} required />
             </Field>
-            <Field label="Author" error={errors.author}>
+            <Field label="Author *" error={errors.author}>
               <TextInput value={values.author} onChange={(event) => update("author", event.target.value)} required />
             </Field>
             <Field label="Category" error={errors.category}>
@@ -119,11 +119,11 @@ function BlogForm() {
             <TextArea value={values.excerpt} onChange={(event) => update("excerpt", event.target.value)} rows={3} maxLength={300} />
           </Field>
 
-          <Field label="Content" error={errors.content}>
+          <Field label="Content *" error={errors.content}>
             <TextArea value={values.content} onChange={(event) => update("content", event.target.value)} required rows={12} />
           </Field>
 
-          <Field label="Cover image" error={errors.coverImage}>
+          <Field label="Cover Image" error={errors.coverImage}>
             <TextInput value={values.coverImage} onChange={(event) => update("coverImage", event.target.value)} placeholder="https://example.com/cover.jpg" />
           </Field>
 

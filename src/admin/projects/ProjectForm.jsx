@@ -97,7 +97,7 @@ function ProjectForm() {
         <form onSubmit={handleSubmit} className="space-y-5">
           {serverError && <StatusMessage type="error">{serverError}</StatusMessage>}
           <div className="grid gap-5 md:grid-cols-2">
-            <Field label="Title" error={errors.title}>
+            <Field label="Title *" error={errors.title}>
               <TextInput value={values.title} onChange={(event) => update("title", event.target.value)} required />
             </Field>
             <Field label="Slogan" error={errors.slogan}>
@@ -105,20 +105,20 @@ function ProjectForm() {
             </Field>
           </div>
 
-          <Field label="Description" error={errors.description}>
+          <Field label="Description *" error={errors.description}>
             <TextArea value={values.description} onChange={(event) => update("description", event.target.value)} required rows={7} />
           </Field>
 
-          <ArrayField label="Technologies" values={values.technologies} onChange={(next) => update("technologies", next)} error={errors.technologies} placeholder="React" />
+          <ArrayField label="Technologies *" values={values.technologies} onChange={(next) => update("technologies", next)} error={errors.technologies} placeholder="React" />
           <ArrayField label="Gallery" values={values.gallery} onChange={(next) => update("gallery", next)} error={errors.gallery} placeholder="https://example.com/image.jpg" hint="Optional HTTPS image URLs." />
 
           <div className="grid gap-5 md:grid-cols-2">
             {[
               ["thumbnail", "Thumbnail"],
-              ["cardImage", "Card image"],
-              ["coverImage", "Cover image"],
-              ["liveDemo", "Live demo"],
-              ["gitRepo", "Git repo"],
+              ["cardImage", "Card Image"],
+              ["coverImage", "Cover Image"],
+              ["liveDemo", "Live Demo"],
+              ["gitRepo", "Git Repo"],
               ["database", "Database preview"],
             ].map(([field, label]) => (
               <Field key={field} label={label} error={errors[field]}>

@@ -84,21 +84,21 @@ function GoodieForm() {
         <form onSubmit={handleSubmit} className="space-y-5">
           {serverError && <StatusMessage type="error">{serverError}</StatusMessage>}
           <div className="grid gap-5 md:grid-cols-2">
-            <Field label="Name" error={errors.name}>
+            <Field label="Name *" error={errors.name}>
               <TextInput value={values.name} onChange={(event) => update("name", event.target.value)} required />
             </Field>
-            <Field label="Category" error={errors.category}>
+            <Field label="Category *" error={errors.category}>
               <TextInput value={values.category} onChange={(event) => update("category", event.target.value)} required />
             </Field>
-            <Field label="Logo URL" error={errors.logo}>
+            <Field label="Logo *" error={errors.logo}>
               <TextInput value={values.logo} onChange={(event) => update("logo", event.target.value)} placeholder="https://example.com/logo.svg" required />
             </Field>
-            <Field label="Website URL" error={errors.url}>
+            <Field label="URL *" error={errors.url}>
               <TextInput value={values.url} onChange={(event) => update("url", event.target.value)} placeholder="https://example.com" required />
             </Field>
           </div>
 
-          <Field label="Description" error={errors.description}>
+          <Field label="Description *" error={errors.description}>
             <TextArea value={values.description} onChange={(event) => update("description", event.target.value)} required rows={6} />
           </Field>
 
