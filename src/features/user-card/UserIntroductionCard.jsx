@@ -13,17 +13,44 @@ import { LuBookHeart } from "react-icons/lu";
 import { RiGlobeFill } from "react-icons/ri";
 import { TbTimezone } from "react-icons/tb";
 import { FiGithub } from "react-icons/fi";
+import { useQuery } from "@tanstack/react-query";
 
 // Story Play Controls
 import useStory from "../story/hooks/useStory";
 import { techStack } from "./api";
 import { useState } from "react";
+import { workStatusApi } from "../../api/workStatusApi";
+import { storiesApi } from "../../api/storiesApi";
+
+const fallbackWorkStatus = {
+  isOpenToWork: false,
+  label: "Available To Work",
+};
 
 function UserIntroductionCard() {
   const [showAllTech, setShowAllTech] = useState(false);
 
   const visibleTechStack = showAllTech ? techStack : techStack.slice(0, 6);
-  const { handleStoryOpen, isStoryOpened } = useStory();
+  const { data: stories = [] } = useQuery({
+    queryKey: ["stories"],
+    queryFn: () => storiesApi.list("?sort=-createdAt&limit=1"),
+    select: (response) => (Array.isArray(response?.data) ? response.data : []),
+    staleTime: 1000 * 60 * 5,
+  });
+  const currentStory = stories[0];
+  const currentStoryKey = currentStory?._id ?? currentStory?.id ?? currentStory?.image;
+  const { handleStoryOpen, isStoryOpened } = useStory(currentStoryKey);
+  const { data: workStatus = fallbackWorkStatus } = useQuery({
+    queryKey: ["work-status"],
+    queryFn: () => workStatusApi.list(),
+    select: (response) => {
+      if (Array.isArray(response?.data)) return response.data[0] || fallbackWorkStatus;
+      return response?.data || fallbackWorkStatus;
+    },
+    staleTime: 1000 * 60 * 5,
+  });
+  const isOpenToWork = Boolean(workStatus.isOpenToWork);
+  const statusLabel = workStatus.label || fallbackWorkStatus.label;
 
   return (
     <div
@@ -56,16 +83,28 @@ function UserIntroductionCard() {
           </div>
 
           {/* Status Dot (Bottom Left) */}
-          <div className="group/status absolute -bottom-1 -left-1 z-30 flex h-6 cursor-default items-center rounded-full bg-gray-900/95 px-1.5 shadow-lg ring-1 ring-white/10 backdrop-blur-md transition-all delay-75 duration-300 ease-out hover:pr-3 hover:ring-green-500/50 hover:delay-0">
+          <div
+            className={`group/status absolute -bottom-1 -left-1 z-30 flex h-6 cursor-default items-center rounded-full bg-gray-900/95 px-1.5 shadow-lg ring-1 ring-white/10 backdrop-blur-md transition-all delay-75 duration-300 ease-out hover:pr-3 hover:delay-0 ${
+              isOpenToWork ? "hover:ring-green-500/50" : "hover:ring-gray-400/50"
+            }`}
+          >
             {/* Dot Icon */}
             <div className="relative flex items-center justify-center w-3 h-3 shrink-0">
               {/* <span className="absolute inline-flex w-full h-full bg-green-400 rounded-full animate-ping opacity-65"></span> */}
-              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-green-500"></span>
+              <span
+                className={`relative inline-flex h-2.5 w-2.5 rounded-full ${
+                  isOpenToWork ? "bg-green-500" : "bg-gray-500"
+                }`}
+              ></span>
             </div>
 
             {/* Text */}
-            <span className="max-w-0 overflow-hidden whitespace-nowrap text-[0px] font-medium text-green-400 opacity-0 transition-all duration-300 ease-out group-hover/status:ml-2 group-hover/status:max-w-[120px] group-hover/status:text-xs group-hover/status:opacity-100">
-              Available To Work
+            <span
+              className={`max-w-0 overflow-hidden whitespace-nowrap text-[0px] font-medium opacity-0 transition-all duration-300 ease-out group-hover/status:ml-2 group-hover/status:max-w-[160px] group-hover/status:text-xs group-hover/status:opacity-100 ${
+                isOpenToWork ? "text-green-400" : "text-gray-300"
+              }`}
+            >
+              {statusLabel}
             </span>
           </div>
         </div>

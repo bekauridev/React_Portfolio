@@ -5,15 +5,26 @@ import { motion } from "framer-motion";
 
 import { ToastContainer } from "react-toastify";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import Modal from "../components/Modal";
 import Story from "../features/story";
 import useStory from "../features/story/hooks/useStory";
+import { storiesApi } from "../api/storiesApi";
 
 function AppLayout() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState(null);
   const [modalContent, setModalContent] = useState({});
-  const { isStoryOpen, handleStoryClose } = useStory();
+  const { data: stories = [] } = useQuery({
+    queryKey: ["stories"],
+    queryFn: () => storiesApi.list("?sort=-createdAt&limit=1"),
+    select: (response) => (Array.isArray(response?.data) ? response.data : []),
+    staleTime: 1000 * 60 * 5,
+  });
+
+  const currentStory = stories[0];
+  const currentStoryKey = currentStory?._id ?? currentStory?.id ?? currentStory?.image;
+  const { isStoryOpen, handleStoryClose } = useStory(currentStoryKey);
 
   // Open Modal and set content dynamically
   const openModal = (type) => {
@@ -44,7 +55,7 @@ function AppLayout() {
   };
 
   return (
-    <div className="relative min-h-screen w-full bg-primary-900">
+    <div className="relative w-full min-h-screen bg-primary-900">
       {/* Diagonal Fade Grid Background - Top Left */}
       <div
         className="absolute inset-0 z-0"
@@ -87,9 +98,7 @@ function AppLayout() {
       <Story
         isStoryOpen={isStoryOpen}
         onStoryClose={handleStoryClose}
-        content={
-          "https://res.cloudinary.com/duybptmkx/image/upload/f_webp/React_portfolio/story/PNG_current_story_image.png"
-        }
+        content={currentStory}
       />
       <main>
         <motion.div

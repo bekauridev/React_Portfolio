@@ -10,6 +10,9 @@ import UserStoryProgressBar from "./components/StoryProgressBar";
 import { useStoryControls } from "./hooks/useStoryControls";
 
 function Story({ isStoryOpen, onStoryClose, content }) {
+  const story = typeof content === "string" ? { image: content } : content;
+  const imageSrc = story?.image;
+  const imageAlt = story?.title || story?.description || "Story Content";
   const {
     progress,
     isPaused,
@@ -26,7 +29,7 @@ function Story({ isStoryOpen, onStoryClose, content }) {
     setIsHeartClicked,
   } = useStoryControls(isStoryOpen, onStoryClose);
 
-  if (!isStoryOpen) return null;
+  if (!isStoryOpen || !imageSrc) return null;
 
   return (
     <div
@@ -73,8 +76,8 @@ function Story({ isStoryOpen, onStoryClose, content }) {
         >
           <div className="h-full pointer-events-none">
             <img
-              src={content}
-              alt="Story Content"
+              src={imageSrc}
+              alt={imageAlt}
               className="object-contain w-full h-full"
             />
           </div>

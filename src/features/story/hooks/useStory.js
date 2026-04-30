@@ -1,19 +1,29 @@
 import { useEffect, useState } from "react";
 
-export default function useStory() {
+const STORY_OPENED_PREFIX = "StoryOpened:";
+
+function getStoryOpenedKey(storyKey) {
+  return storyKey ? `${STORY_OPENED_PREFIX}${storyKey}` : null;
+}
+
+export default function useStory(storyKey) {
   const [isStoryOpen, setStoryOpen] = useState(false);
 
   // User avatar border state
-  const [isStoryOpened, setIsStoryOpened] = useState(() => {
-    const storedValue = localStorage.getItem("StoryOpened");
-    // Converts to boolean
-    return storedValue === "true";
-  });
+  const [isStoryOpened, setIsStoryOpened] = useState(false);
+
+  useEffect(() => {
+    const storageKey = getStoryOpenedKey(storyKey);
+    setIsStoryOpened(storageKey ? localStorage.getItem(storageKey) === "true" : false);
+  }, [storyKey]);
 
   const handleStoryOpen = () => {
     setStoryOpen(true);
-    setIsStoryOpened(true);
-    localStorage.setItem("StoryOpened", true);
+    const storageKey = getStoryOpenedKey(storyKey);
+    if (storageKey) {
+      setIsStoryOpened(true);
+      localStorage.setItem(storageKey, "true");
+    }
     window.location.hash = "#story"; // Set hash in URL
   };
 
@@ -27,6 +37,11 @@ export default function useStory() {
     const checkHash = () => {
       if (window.location.hash === "#story") {
         setStoryOpen(true);
+        const storageKey = getStoryOpenedKey(storyKey);
+        if (storageKey) {
+          setIsStoryOpened(true);
+          localStorage.setItem(storageKey, "true");
+        }
         // Remove scrollbar when story is open
         document.body.style.overflow = "hidden";
       } else {
@@ -45,7 +60,7 @@ export default function useStory() {
     return () => {
       window.removeEventListener("hashchange", checkHash);
     };
-  }, []);
+  }, [storyKey]);
 
   return { isStoryOpen, handleStoryOpen, handleStoryClose, isStoryOpened };
 }
