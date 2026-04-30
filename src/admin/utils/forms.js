@@ -66,6 +66,11 @@ export function getItem(response) {
   return response?.data ?? null;
 }
 
+export function getSingleton(response) {
+  if (Array.isArray(response?.data)) return response.data[0] ?? null;
+  return response?.data ?? null;
+}
+
 export function formatDate(value) {
   if (!value) return "-";
   return new Intl.DateTimeFormat("en", {
@@ -176,5 +181,40 @@ export function normalizeGoodie(values) {
     logo: values.logo.trim(),
     url: values.url.trim(),
     category: values.category.trim(),
+  };
+}
+
+export function validateStory(values) {
+  const errors = {};
+  if (!values.image.trim()) errors.image = "Image is required.";
+  if (values.image.trim() && !isHttpsUrl(values.image)) {
+    errors.image = "Image must be a valid HTTPS URL.";
+  }
+  return errors;
+}
+
+export function normalizeStory(values, { includeClearedOptional = false } = {}) {
+  const payload = {
+    image: values.image.trim(),
+  };
+
+  return withOptionalFields(payload, values, ["title", "description"], {
+    includeCleared: includeClearedOptional,
+  });
+}
+
+export function validateWorkStatus(values) {
+  const errors = {};
+  if (typeof values.isOpenToWork !== "boolean") {
+    errors.isOpenToWork = "Work status must be true or false.";
+  }
+  if (!values.label.trim()) errors.label = "Label is required.";
+  return errors;
+}
+
+export function normalizeWorkStatus(values) {
+  return {
+    isOpenToWork: Boolean(values.isOpenToWork),
+    label: values.label.trim(),
   };
 }
