@@ -1,5 +1,14 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { MdArticle, MdCardGiftcard, MdHome, MdLogout, MdOutlineWork, MdSettings } from "react-icons/md";
+import {
+  MdArticle,
+  MdAutoStories,
+  MdCardGiftcard,
+  MdEventAvailable,
+  MdHome,
+  MdLogout,
+  MdOutlineWork,
+  MdSettings,
+} from "react-icons/md";
 import { useAuth } from "../auth/authContext";
 import { cn } from "../utils/helpers";
 
@@ -7,6 +16,8 @@ const navItems = [
   { to: "/admin/projects", label: "Projects", icon: MdOutlineWork },
   { to: "/admin/blogs", label: "Blogs", icon: MdArticle },
   { to: "/admin/goodies", label: "Goodies", icon: MdCardGiftcard },
+  { to: "/admin/stories", label: "Stories", icon: MdAutoStories },
+  { to: "/admin/work-status", label: "Work Status", icon: MdEventAvailable },
   { to: "/admin/settings", label: "Settings", icon: MdSettings },
 ];
 
