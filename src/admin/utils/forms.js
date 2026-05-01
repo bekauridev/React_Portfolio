@@ -242,3 +242,39 @@ export function normalizeTechStack(values) {
     order: Number(values.order),
   };
 }
+
+export function validateEducation(values) {
+  const errors = {};
+  const order = Number(values.order);
+
+  if (!values.date.trim()) errors.date = "Date is required.";
+  if (!values.title.trim()) errors.title = "Title is required.";
+  if (!values.description.trim()) errors.description = "Description is required.";
+  if (!values.learningPlace.trim()) {
+    errors.learningPlace = "Learning place is required.";
+  }
+  if (values.learningPlaceLink.trim() && !isHttpsUrl(values.learningPlaceLink)) {
+    errors.learningPlaceLink = "Learning place link must be a valid HTTPS URL.";
+  }
+  if (values.order === "" || !Number.isFinite(order) || order < 0) {
+    errors.order = "Order must be a number greater than or equal to 0.";
+  }
+
+  return errors;
+}
+
+export function normalizeEducation(values, { includeClearedOptional = false } = {}) {
+  const payload = {
+    date: values.date.trim(),
+    title: values.title.trim(),
+    description: values.description.trim(),
+    learningPlace: values.learningPlace.trim(),
+    order: Number(values.order),
+  };
+
+  const learningPlaceLink = values.learningPlaceLink.trim();
+  if (learningPlaceLink) payload.learningPlaceLink = learningPlaceLink;
+  if (!learningPlaceLink && includeClearedOptional) payload.learningPlaceLink = null;
+
+  return payload;
+}
