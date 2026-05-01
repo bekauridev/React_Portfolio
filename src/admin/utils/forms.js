@@ -218,3 +218,27 @@ export function normalizeWorkStatus(values) {
     label: values.label.trim(),
   };
 }
+
+export function validateTechStack(values) {
+  const errors = {};
+  const order = Number(values.order);
+
+  if (!values.name.trim()) errors.name = "Name is required.";
+  if (!values.iconUrl.trim()) errors.iconUrl = "Icon URL is required.";
+  if (values.iconUrl.trim() && !isHttpsUrl(values.iconUrl)) {
+    errors.iconUrl = "Icon URL must be a valid HTTPS URL.";
+  }
+  if (values.order === "" || !Number.isFinite(order) || order < 0) {
+    errors.order = "Order must be a number greater than or equal to 0.";
+  }
+
+  return errors;
+}
+
+export function normalizeTechStack(values) {
+  return {
+    name: values.name.trim(),
+    iconUrl: values.iconUrl.trim(),
+    order: Number(values.order),
+  };
+}
