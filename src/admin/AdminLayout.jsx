@@ -6,6 +6,7 @@ import {
   MdEventAvailable,
   MdHome,
   MdLogout,
+  MdMemory,
   MdOutlineWork,
   MdSettings,
 } from "react-icons/md";
@@ -16,6 +17,7 @@ const navItems = [
   { to: "/admin/projects", label: "Projects", icon: MdOutlineWork },
   { to: "/admin/blogs", label: "Blogs", icon: MdArticle },
   { to: "/admin/goodies", label: "Goodies", icon: MdCardGiftcard },
+  { to: "/admin/tech-stack", label: "Tech Stack", icon: MdMemory },
   { to: "/admin/stories", label: "Stories", icon: MdAutoStories },
   { to: "/admin/work-status", label: "Work Status", icon: MdEventAvailable },
   { to: "/admin/settings", label: "Settings", icon: MdSettings },
