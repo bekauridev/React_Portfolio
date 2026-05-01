@@ -17,10 +17,10 @@ import { useQuery } from "@tanstack/react-query";
 
 // Story Play Controls
 import useStory from "../story/hooks/useStory";
-import { techStack } from "./api";
 import { useState } from "react";
 import { workStatusApi } from "../../api/workStatusApi";
 import { storiesApi } from "../../api/storiesApi";
+import { techStackApi } from "../../api/techStackApi";
 
 const fallbackWorkStatus = {
   isOpenToWork: false,
@@ -30,7 +30,20 @@ const fallbackWorkStatus = {
 function UserIntroductionCard() {
   const [showAllTech, setShowAllTech] = useState(false);
 
-  const visibleTechStack = showAllTech ? techStack : techStack.slice(0, 6);
+  const { data: apiTechStack = [] } = useQuery({
+    queryKey: ["tech-stack"],
+    queryFn: () => techStackApi.list(),
+    select: (response) => {
+      const items = Array.isArray(response?.data) ? response.data : [];
+      return items.map((item) => ({
+        id: item._id ?? item.id ?? item.name,
+        icon: item.iconUrl,
+        name: item.name,
+      }));
+    },
+    staleTime: 1000 * 60 * 5,
+  });
+  const visibleTechStack = showAllTech ? apiTechStack : apiTechStack.slice(0, 6);
   const { data: stories = [] } = useQuery({
     queryKey: ["stories"],
     queryFn: () => storiesApi.list("?sort=-createdAt&limit=1"),
@@ -54,13 +67,13 @@ function UserIntroductionCard() {
 
   return (
     <div
-      className="relative block max-w-lg p-6 mx-2 border shadow-lg justify-self-center rounded-xl border-slate-700/30 bg-primary-900/10"
+      className="relative mx-2 block max-w-lg justify-self-center rounded-xl border border-slate-700/30 bg-primary-900/10 p-6 shadow-lg"
       style={{ backdropFilter: "blur(1px)" }}
     >
       {/* HEADER SECTION */}
-      <div className="flex items-center gap-4 mb-4">
+      <div className="mb-4 flex items-center gap-4">
         {/* Profile Image Wrapper */}
-        <div className="relative group/avatar shrink-0">
+        <div className="group/avatar relative shrink-0">
           <div
             onClick={handleStoryOpen}
             className={twMerge(
@@ -75,11 +88,11 @@ function UserIntroductionCard() {
               src="https://res.cloudinary.com/duybptmkx/image/upload/w_400,h_400,c_fill,g_face,q_auto,f_webp/v1762891365/Resume-image_cphpgc.jpg"
               alt="BekauriDev Portfolio Avatar image"
               loading="eager"
-              className="object-cover w-full h-full"
+              className="h-full w-full object-cover"
             />
 
             {/* Overlay effect for image */}
-            <div className="absolute inset-0 transition-opacity duration-300 bg-primary-600/20 hover:opacity-40"></div>
+            <div className="absolute inset-0 bg-primary-600/20 transition-opacity duration-300 hover:opacity-40"></div>
           </div>
 
           {/* Status Dot (Bottom Left) */}
@@ -89,8 +102,8 @@ function UserIntroductionCard() {
             }`}
           >
             {/* Dot Icon */}
-            <div className="relative flex items-center justify-center w-3 h-3 shrink-0">
-              {/* <span className="absolute inline-flex w-full h-full bg-green-400 rounded-full animate-ping opacity-65"></span> */}
+            <div className="relative flex h-3 w-3 shrink-0 items-center justify-center">
+              {/* <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-65"></span> */}
               <span
                 className={`relative inline-flex h-2.5 w-2.5 rounded-full ${
                   isOpenToWork ? "bg-green-500" : "bg-gray-500"
@@ -121,7 +134,7 @@ function UserIntroductionCard() {
       </div>
 
       {/* User Info */}
-      <div className="flex flex-wrap gap-2 mb-6">
+      <div className="mb-6 flex flex-wrap gap-2">
         <InfoItem Icon={FaMapLocationDot} text="Georgia/Tbilisi" />
         <InfoItem Icon={TbTimezone} text="UTC+4" />
         <InfoItem Icon={FaBirthdayCake} text="10-31-2005" />
@@ -129,37 +142,42 @@ function UserIntroductionCard() {
         <InfoItem Icon={LuBookHeart} text="Love Psychology" />
       </div>
 
-      {/* Tech Stack */}
-      <div className="mb-4">
-        <p className="mb-2 font-semibold text-gray-300 text-md">Tech stack:</p>
-        <div className="flex flex-wrap gap-2">
-          {visibleTechStack.map((tech, index) => (
-            <UserTechStackItem key={index} IconPath={tech.icon} Technology={tech.name} />
-          ))}
-        </div>
-
-        {techStack.length > 6 && (
-          <div className="mt-2 flex justify-start pl-0.5">
-            <button
-              onClick={() => setShowAllTech(!showAllTech)}
-              className="inline-flex items-center gap-1 text-sm font-medium transition-colors text-text hover:text-primary-300"
-            >
-              {showAllTech ? (
-                <>
-                  Show less <FaChevronUp className="text-xs" />
-                </>
-              ) : (
-                <>
-                  Show more <FaChevronDown className="text-xs" />
-                </>
-              )}
-            </button>
+      {apiTechStack.length > 0 && (
+        <div className="mb-4">
+          <p className="text-md mb-2 font-semibold text-gray-300">Tech stack:</p>
+          <div className="flex flex-wrap gap-2">
+            {visibleTechStack.map((tech) => (
+              <UserTechStackItem
+                key={tech.id ?? tech.name}
+                IconPath={tech.icon}
+                Technology={tech.name}
+              />
+            ))}
           </div>
-        )}
-      </div>
+
+          {apiTechStack.length > 6 && (
+            <div className="mt-2 flex justify-start pl-0.5">
+              <button
+                onClick={() => setShowAllTech(!showAllTech)}
+                className="inline-flex items-center gap-1 text-sm font-medium text-text transition-colors hover:text-primary-300"
+              >
+                {showAllTech ? (
+                  <>
+                    Show less <FaChevronUp className="text-xs" />
+                  </>
+                ) : (
+                  <>
+                    Show more <FaChevronDown className="text-xs" />
+                  </>
+                )}
+              </button>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Buttons */}
-      <div className="flex flex-row gap-2 mt-8">
+      <div className="mt-8 flex flex-row gap-2">
         <Button
           type="primary"
           className="text-md"
