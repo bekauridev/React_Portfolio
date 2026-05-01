@@ -8,6 +8,7 @@ import {
   MdLogout,
   MdMemory,
   MdOutlineWork,
+  MdSchool,
   MdSettings,
 } from "react-icons/md";
 import { useAuth } from "../auth/authContext";
@@ -18,6 +19,7 @@ const navItems = [
   { to: "/admin/blogs", label: "Blogs", icon: MdArticle },
   { to: "/admin/goodies", label: "Goodies", icon: MdCardGiftcard },
   { to: "/admin/tech-stack", label: "Tech Stack", icon: MdMemory },
+  { to: "/admin/education", label: "Education", icon: MdSchool },
   { to: "/admin/stories", label: "Stories", icon: MdAutoStories },
   { to: "/admin/work-status", label: "Work Status", icon: MdEventAvailable },
   { to: "/admin/settings", label: "Settings", icon: MdSettings },
